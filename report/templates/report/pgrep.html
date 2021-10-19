@@ -1,0 +1,44 @@
+{% extends "report/layout.html" %}
+{% load static %}
+{% block title %}Index{% endblock %}
+{% block body %}
+
+<div class="card text-left">    
+    <div class="card-header">
+        <h6>{{e.dor|date}} Lab No :{{e.prefix}}/{{e.plkey}}  Samp No:  {{e.sampno}}  :  {{e.fname}} {{e.mname}} {{e.lname}} </h6>
+    </div>
+    <div class="card-body">
+        <h6 class="card-title">Ref by :  {{e.refdr.title}} {{e.refdr.drname}}</h6>
+    </div>
+        <p class="card-body">Tests for {{reporttitle}}:({{repokey}})</p>
+    </div>
+</div>
+
+<div>
+  {% for t in tests %}
+    <form action="{% url 'report' repokey %}" method="post">
+      {% csrf_token %}
+      <li class="list-group-item d-flex justify-content-between align-items-center testname">
+        <label for="testname">{{t.test}}:</label>
+        <input name= "result" placeholder = "{{t.result}}">
+        <input type = "hidden" name= "testkey" value = "{{t.testkey}}">
+        <input type= "submit" value = "Change">         
+      </li>
+    </form>
+  {% empty %}
+  No Tests Listed.
+  {% endfor %}
+</div>
+<br>
+<form action="{% url 'encounter' e.labkey %}" method="post">
+  {% csrf_token %}
+  <input type = "hidden" name= "repokey" value = "{{repokey}}">
+  <input type= "submit" value = "Verify">
+<form>
+<br>
+<div>
+    <a href={% url 'encounter' e.labkey %} class="btn btn-primary">Back</a>
+
+</div>
+{% endblock %}
+

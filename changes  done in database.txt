@@ -1,0 +1,32 @@
+*************************************following fieds changed:**********************************
+ERRORS:
+report.Loglogins.pk: (fields.E003) 'pk' is a reserved word that cannot be used as a field name.
+report.Mstrs232Tests.pk: (fields.E003) 'pk' is a reserved word that cannot be used as a field name.
+report.Mstsecctrl.pk: (fields.E003) 'pk' is a reserved word that cannot be used as a field name.
+report.Mstsmschrreplace.pk: (fields.E003) 'pk' is a reserved word that cannot be used as a field name.
+report.Mstsmschrreplace.pk: (fields.E100) AutoFields must set primary_key=True.
+report.Tblregi.pk: (fields.E003) 'pk' is a reserved word that cannot be used as a field name.
+report.Tmpprinthisto: (models.E004) 'id' can only be used as a field name if the field also sets 'primary_key=True'.
+********************************************************************************************
+
+WARNINGS:
+report.Mstdrincentive.mstdrkey: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+        HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+report.Mstdrincentrs.mstitemkey: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+        HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+report.Mstitemrepotests.mstitemkey: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+        HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+report.Mstrs232Formula.instno: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+        HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+report.Msttestscalc.mstrepokey: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+        HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+report.Tblcptitem.itemkey: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+        HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+report.Tblimg.repokey: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+        HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+report.Tblrs232Histoimg.rs232fk: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+        HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+report.Tbltestscalc.repokey: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+        HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+
+************************************************************************************************

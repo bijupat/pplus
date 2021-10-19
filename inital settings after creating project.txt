@@ -1,0 +1,41 @@
+***********************************************
+
+DJANGO DONOT SUPPORT MSSQL OUTOF BOX:
+
+Installation
+Install pyodbc and Django
+
+Install django-pyodbc-azure
+
+pip install django-pyodbc-azure
+Now you can point the ENGINE setting in the settings file used by your Django application 
+or project to the 'sql_server.pyodbc' module path
+
+GO TO SETTING.PY FILE
+And change database setting
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'mydb',
+        'USER': 'user@myserver',
+        'PASSWORD': 'password',
+        'HOST': 'myserver.database.windows.net',
+        'PORT': '',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    },
+}
+
+# set this to False if you want to turn off pyodbc's connection pooling
+DATABASE_CONNECTION_POOLING = False
+You can change ODBC Driver in options
+to open ODBC Data Source Administrator(to check ODBC Drivce used in your system) in Windows 10:
+
+Show the Run dialog using Windows+R, type odbcad32 and tap OK.
+A window will open. go  to server tab to check ODBC version.
+**********************************************************************
+
+

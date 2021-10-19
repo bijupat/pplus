@@ -1,0 +1,108 @@
+{% extends "report/layout.html" %}
+{% load static %}
+{% block title %}Encounter {{e.id}}{% endblock %}
+{% block head %}
+  <script src="{% static 'report\encounter.js' %}" defer></script>
+{% endblock %}
+{% block body %}
+
+
+
+<div class="card text-left">    
+    <div class="card-header">
+        <h6>{{e.dor|date}} Lab No : {{e.prefix}}/{{e.plkey}} Samp No :  {{e.sampno}}  :  {{e.fname}} {{e.mname}} {{e.lname}} </h6>
+    </div>
+    <div class="card-body">
+        <h6 class="card-title">labkey : {{e.labkey}} Ref by :  {{e.refdr.title}} {{e.refdr.drname}}</h6>
+    </div>
+        <p class="card-body">Investigation Registered:</p>
+    </div>
+</div>
+
+<ul class="list-group">
+  {% for i in investigations %}
+  <li class="list-group-item d-flex justify-content-between align-items-center ">
+    <span class ="testname">{{i.item}}</span>
+    <span >{{i.rate}}</span>    
+  </li>
+  {% empty %}
+  No Test Listed.
+  {% endfor %}
+  <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-dark">
+    Total
+    <a href={% url 'index'  %} class="btn btn-primary">Print Bill</a>
+    <span>{{total}}</span>
+    
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-warning">
+    Discount
+    <div>
+      <a href={% url 'index'  %} class="btn btn-primary" id="addeditdisc">Add/Edit Discount</a>
+    </div>
+    <div id="addeditdiscout">
+      <form action="{% url 'index' %}" method="post">
+        <input value="{{e.id}}" name="eidinput" style="display: none">
+        {% csrf_token %}
+        <input   name="addeditdiscountinput" id="addeditdiscountinput">
+        <input disabled type= "submit" id="addeditdiscountsubmit" class="btn btn-primary btn-sm">
+      </form> 
+    </div>
+    <span> 
+        {{ invoice.discount|default:0 }}
+    </span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-success">
+    Paid:
+    <a href={% url 'index'  %} class="btn btn-primary ">Print Receipt</a>
+    <a href={% url 'index' %} class="btn btn-primary" id="addpayment">Add Payment</a>
+    <span>
+      {% for payment in payments %}
+        <ul>
+          <li> {{payment.paymentAmount}}</li>
+        </ul>
+      {% empty %}
+        No Payment Received.
+      {% endfor %}   
+    </span>
+  </li>
+  
+  <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
+    Due &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href={% url 'index'  %} class="btn btn-primary">Send Reminder</a>
+    <span>{{ invoice.due|default:0 }}</span>
+  </li>
+</ul>
+<br>
+<div class="card-body">
+    <p class="card-text">Reports</p>
+</div>
+{% for r in reports %}
+<li class="list-group-item d-flex justify-content-between align-items-center ">
+  <span class ="testname"><a href={% url 'report' r.repokey %} class="btn btn-primary">{{r.title}}</a></span>
+  {% if r.status == 4 %}
+  <span >Delivered</span>
+  {% elif r.status == 3 %}
+  <span >Printed</span>
+  {% elif r.status == 2 %}
+  <span >Verified</span>
+  {% elif r.status == 1 %}
+  <span >Entered</span> 
+  {% elif r.status == 0 %}
+  <span >Pending</span>     
+  {% endif %}
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center ">
+  {{r.verifydt}}
+<li>
+{% empty %}
+No Report Listed.
+{% endfor %}
+<br>
+<div>
+    <a href={% url 'index'  %} class="btn btn-primary">Go to Today</a>
+
+    <a href={% url 'index'  %} method="post" class="btn btn-primary">Back</a>
+
+</div>
+
+{% endblock %}

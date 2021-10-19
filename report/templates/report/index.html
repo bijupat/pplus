@@ -1,0 +1,51 @@
+{% extends "report/layout.html" %}
+{% load static %}
+{% block title %}Index{% endblock %}
+{% block body %}
+ 
+
+    <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-group flex-nowrap">
+            <label class="input-group-text" id="addon-wrapping" for="date">Select Date:</label>
+            <input class="form-control" type="date" id="date_select" name="date" aria-describedby="addon-wrapping">
+            <input disabled id = "datesubmit" class="btn btn-primary btn-sm" type="submit">
+        </div>
+    </form>
+    <br>
+
+    <h5>Patient Listed for  : {{date|default:"Today"}}</h5>
+    <div class="list-group">
+        {% for e in encounter %}
+            <a href= {% url 'encounter' e.labkey %} class="list-group-item list-group-item-action" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">{{e.sampno}}/{{e.labkey}} : {{e.dor|date}} : {{e.fname}} {{e.mname}} {{e.lname}} </h6>
+                    <small>{{e.account}}.</small>
+                    <small>{{e.refdr.drname}}</small>
+                    <small>
+                        <ol>
+                            {% for t in e.Tblinv.all %}
+                            <li>{{t.item}} : {{t.rate}}</li>
+                            {% endfor %}
+                        </ol>
+                    </small>
+                </div>
+            </a>
+            {% empty %}
+            No Patient Listed!
+            {% endfor %}
+    </div>
+ <div>
+</div>
+    </p>
+<script>
+    // on selecting date the submit button activated from disabled 
+    document.getElementById('date_select').addEventListener('change', function () {
+        //console.log(document.querySelector('#datesubmit'))
+        //alert("datechanged")
+        document.querySelector('#datesubmit').disabled = false;
+    });
+</script>
+{% endblock %}
+
+
