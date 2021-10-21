@@ -30,35 +30,33 @@
   {% endfor %}
   <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-dark">
     Total
-    <a href={% url 'index'  %} class="btn btn-primary">Print Bill</a>
     <span>{{total}}</span>
     
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-warning">
     Discount
-    <div>
-      <a href={% url 'index'  %} class="btn btn-primary" id="addeditdisc">Add/Edit Discount</a>
-    </div>
     <div id="addeditdiscout">
-      <form action="{% url 'index' %}" method="post">
-        <input value="{{e.id}}" name="eidinput" style="display: none">
+      <form action="{% url 'discount' e.labkey %}" method="post">
         {% csrf_token %}
         <input   name="addeditdiscountinput" id="addeditdiscountinput">
-        <input disabled type= "submit" id="addeditdiscountsubmit" class="btn btn-primary btn-sm">
+        <input  type= "submit" id="addeditdiscountsubmit" class="btn btn-primary btn-sm" value = "Add/Edit Discount">
       </form> 
     </div>
     <span> 
-        {{ invoice.discount|default:0 }}
+        {{ e.disc|default:0 }}
     </span>
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-success">
-    Paid:
-    <a href={% url 'index'  %} class="btn btn-primary ">Print Receipt</a>
-    <a href={% url 'index' %} class="btn btn-primary" id="addpayment">Add Payment</a>
+    Total : {{total_payment}}
+    <form action="{% url 'addpayment' e.labkey %}" method="post">
+        {% csrf_token %}
+        <input   name="addpayment" id="addpayment">
+        <input  type= "submit" id="addpaysubmit" class="btn btn-primary btn-sm" value = "Add Payment">
+      </form>
     <span>
       {% for payment in payments %}
         <ul>
-          <li> {{payment.paymentAmount}}</li>
+          <li> Rs : {{payment.amount}} at : {{payment.paidon}} belongs to Op ID : {{payment.oprkey}} Receipt No: {{payment.recpno}} </li>
         </ul>
       {% empty %}
         No Payment Received.
@@ -68,8 +66,7 @@
   
   <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
     Due &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href={% url 'index'  %} class="btn btn-primary">Send Reminder</a>
-    <span>{{ invoice.due|default:0 }}</span>
+    <span>{{due}}</span>
   </li>
 </ul>
 <br>
@@ -90,10 +87,8 @@
   {% elif r.status == 0 %}
   <span >Pending</span>     
   {% endif %}
-</li>
-<li class="list-group-item d-flex justify-content-between align-items-center ">
   {{r.verifydt}}
-<li>
+</li>
 {% empty %}
 No Report Listed.
 {% endfor %}

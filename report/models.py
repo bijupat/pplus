@@ -1126,7 +1126,8 @@ class Tbllab(models.Model):
     fname = models.CharField(db_column='FName', max_length=20)  # Field name made lowercase.
     mname = models.CharField(db_column='MName', max_length=20)  # Field name made lowercase.
     lname = models.CharField(db_column='LName', max_length=20)  # Field name made lowercase.
-    patname = models.CharField(db_column='PatName', max_length=62)  # Field name made lowercase.
+    #patname is disabled as it donot allow to run views.discount=>e.save() line to execute as this field is compund field
+    #patname = models.CharField(db_column='PatName', max_length=62)  # Field name made lowercase.
     sex = models.CharField(db_column='Sex', max_length=1)  # Field name made lowercase.
     age = models.DecimalField(db_column='Age', max_digits=10, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
     ageunit = models.CharField(db_column='AgeUnit', max_length=6)  # Field name made lowercase.
@@ -1158,7 +1159,8 @@ class Tbllab(models.Model):
     billno = models.IntegerField(db_column='BillNo')  # Field name made lowercase.
     billprinted = models.SmallIntegerField(db_column='BillPrinted')  # Field name made lowercase.
     sampno = models.SmallIntegerField(db_column='SampNo')  # Field name made lowercase.
-    labrefno = models.CharField(db_column='LabRefNo', max_length=17, blank=True, null=True)  # Field name made lowercase.
+    #labrefno is disabled as it donot allow to run views.discount=>e.save() line to execute as this field is compund field
+    #labrefno = models.CharField(db_column='LabRefNo', max_length=17, blank=True, null=True)  # Field name made lowercase.
     incent2name = models.CharField(db_column='Incent2Name', max_length=30)  # Field name made lowercase.
     incent2per = models.SmallIntegerField(db_column='Incent2Per')  # Field name made lowercase.
     key4graph = models.BigIntegerField(db_column='Key4Graph', blank=True, null=True)  # Field name made lowercase.
