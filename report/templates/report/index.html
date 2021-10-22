@@ -3,7 +3,7 @@
 {% block title %}Index{% endblock %}
 {% block body %}
  
-
+{{user.oprname}}
     <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="input-group flex-nowrap">
