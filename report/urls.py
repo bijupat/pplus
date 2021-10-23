@@ -10,8 +10,4 @@ urlpatterns = [
     path('addpayment/<int:labkey>', views.addpayment, name='addpayment'),
     path("", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
-   
-
-
-
 ]

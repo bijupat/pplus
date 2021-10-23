@@ -29,7 +29,7 @@
 
     <body>
         
-        hey {{user.oprname}}<a href={% url 'logout'  %} class="btn btn-primary">Logout</a>
+        hey {{user}}   <a href={% url 'logout'  %} class="btn btn-primary">Logout</a>
         <br>
         <main class="container p-5">
             {% block body %}{% endblock %}
