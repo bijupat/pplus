@@ -9,7 +9,7 @@ from django.urls import reverse
 from datetime import timedelta
 
 #time delta for 5 hours and 30 min
-TIME_DELTA530 = timedelta(days= 0, hours = 5, minutes = 30)
+#TIME_DELTA530 = timedelta(days= 0, hours = 5, minutes = 30)
 #initialise empty USER set
 USERS=[]
 #Getting all mstopr object with only five colums 'oprkey', 'oprid', 'oprname', 'pw', 'active'
@@ -50,9 +50,10 @@ def encounter(request, labkey):
             reportpg = Tblrepo.objects.get(pk=repokey)
             labkey = reportpg.labkey.labkey
             reportpg.status = 2
-            reportpg.verifydt = datetime.today() + + TIME_DELTA530
-            reportpg.verifyby = 5
+            reportpg.verifydt = datetime.today()
+            reportpg.verifyby = request.session['oprkey']
             reportpg.save()
+         
 
             return HttpResponseRedirect(reverse("encounter",  args=[labkey]))
 
@@ -64,11 +65,11 @@ def encounter(request, labkey):
             reports = Tblrepo.objects.filter(labkey=labkey)
             payments = Tblpay.objects.filter(labkey=labkey)
             x = payments.all().aggregate(Sum('amount'))
-            total_payment = x['amount__sum']
+            total_payment = x['amount__sum']            
             if total_payment:
-                due = total  - (int(total_payment) + int(e.disc))
+                due = total  - (total_payment + e.disc)
             else:
-                due = 0       
+                due = total - e.disc      
             return render(request, 'report\encounter.html', {"e" : e, "total": total, "investigations":investigation, "reports":reports, "payments" : payments, "total_payment":total_payment, "due":due, "user":request.session['user']} )
 
     else:

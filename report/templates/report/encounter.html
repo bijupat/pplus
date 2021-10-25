@@ -12,7 +12,7 @@
         <h6>{{e.dor|date}} Lab No : {{e.prefix}}/{{e.plkey}} Samp No :  {{e.sampno}}  :  {{e.fname}} {{e.mname}} {{e.lname}} </h6>
     </div>
     <div class="card-body">
-        <h6 class="card-title">labkey : {{e.labkey}} Ref by :  {{e.refdr.title}} {{e.refdr.drname}}</h6>
+        <h6 class="card-title">labkey : {{e.labkey}} Ref by :{{e.refdr.title}} {{e.refdr.drname}}</h6>
     </div>
         <p class="card-body">Investigation Registered:</p>
     </div>
@@ -22,6 +22,15 @@
   {% for i in investigations %}
   <li class="list-group-item d-flex justify-content-between align-items-center ">
     <span class ="testname">{{i.item}}</span>
+    <form action={% url 'index' %} method="get">
+        {% csrf_token %}
+        <!-- filter slugify: Converts to ASCII. Converts spaces to hyphens. Removes characters that 
+        aren’t alphanumerics, underscores, or hyphens. Converts to lowercase. Also strips 
+        leading and trailing whitespace. 
+        query slector not supporting items with space and numbers-->
+        <input   name="{{i.item}}" data-invkey="{{i.item|slugify  }}" class="editrateinput"  >
+        <input disabled type= "submit"  id="{{i.test}}" data-invkey="{{i.item|slugify}}" class="btn btn-primary btn-sm" value = "Edit Rate">
+      </form>
     <span >{{i.rate}}</span>    
   </li>
   {% empty %}
@@ -38,7 +47,7 @@
       <form action="{% url 'discount' e.labkey %}" method="post">
         {% csrf_token %}
         <input   name="addeditdiscountinput" id="addeditdiscountinput">
-        <input  type= "submit" id="addeditdiscountsubmit" class="btn btn-primary btn-sm" value = "Add/Edit Discount">
+        <input disabled type= "submit" id="addeditdiscountsubmit" class="btn btn-primary btn-sm" value = "Add/Edit Discount">
       </form> 
     </div>
     <span> 
@@ -46,11 +55,11 @@
     </span>
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-success">
-    Total : {{total_payment}}
+    Payments:
     <form action="{% url 'addpayment' e.labkey %}" method="post">
         {% csrf_token %}
         <input   name="addpayment" id="addpayment">
-        <input  type= "submit" id="addpaysubmit" class="btn btn-primary btn-sm" value = "Add Payment">
+        <input disabled type= "submit" id="addpaysubmit" class="btn btn-primary btn-sm" value = "Add Payment">
       </form>
     <span>
       {% for payment in payments %}
@@ -61,6 +70,9 @@
         No Payment Received.
       {% endfor %}   
     </span>
+
+    Total : {{total_payment|default:0}}
+
   </li>
   
   <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
