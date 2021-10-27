@@ -3,26 +3,35 @@
 {% block title %}Index{% endblock %}
 {% block body %}
 
-<div class="card text-left">    
+
+<div class="card text-left">
     <div class="card-header">
-        <h6>{{e.dor|date}} Lab No :{{e.prefix}}/{{e.plkey}}  Samp No:  {{e.sampno}}  :  {{e.fname}} {{e.mname}} {{e.lname}} </h6>
+        <div class="row row-cols-auto">
+            <div class="col">{{e.dor|date}}</div>
+            <div class="col">Lab No:{{e.prefix}}/{{e.plkey}}</div>
+            <div class="col">Samp No:{{e.sampno}}</div>
+        </div>        
     </div>
     <div class="card-body">
-        <h6 class="card-title">Ref by :  {{e.refdr.title}} {{e.refdr.drname}}</h6>
-    </div>
-        <p class="card-body">Tests for {{reporttitle}}:({{repokey}})</p>
+        <div class="row">
+            <div class="col-6">Patient Name: <h6>{{e.fname}} {{e.mname}} {{e.lname}} </h6></div>
+            <div class="col-6">Ref by :<h6> {{e.refdr.title}} {{e.refdr.drname}} </h6></div>
+        </div>
     </div>
 </div>
 
-<div>
+
+<div >
   {% for t in tests %}
     <form action="{% url 'report' repokey %}" method="post">
       {% csrf_token %}
-      <li class="list-group-item d-flex justify-content-between align-items-center testname">
+      <li  class="list-group-item d-flex justify-content-between align-items-center testname">
         <label for="testname">{{t.test}}:</label>
-        <input name= "result" placeholder = "{{t.result}}">
-        <input type = "hidden" name= "testkey" value = "{{t.testkey}}">
-        <input type= "submit" value = "Change">         
+        <input  type= "submit" value = "Update">
+      </li>
+      <li  class="list-group-item d-flex justify-content-between align-items-center testname">
+        <input style="width:100%" name= "result" placeholder = "{{t.result}}">
+        <input type = "hidden" name= "testkey" value = "{{t.testkey}}">                 
       </li>
     </form>
   {% empty %}
@@ -30,15 +39,18 @@
   {% endfor %}
 </div>
 <br>
-<form action="{% url 'encounter' e.labkey %}" method="post">
-  {% csrf_token %}
-  <input type = "hidden" name= "repokey" value = "{{repokey}}">
-  <input type= "submit" value = "Verify">
-<form>
-<br>
-<div>
-    <a href={% url 'encounter' e.labkey %} class="btn btn-primary">Back</a>
 
+<div align="center">
+  <form action="{% url 'encounter' e.labkey %}" method="post">
+    {% csrf_token %}
+    <input type = "hidden" name= "repokey" value = "{{repokey}}">
+    <input type= "submit" style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%" value = "Verify">
+  <form>
+</div>
+  <br>
+  <br>
+<div align="center">
+  <a href={% url 'encounter' e.labkey %} style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%">Back</a>
 </div>
 {% endblock %}
 

@@ -45,6 +45,7 @@ def encounter(request, labkey):
     # checking if user key is in request.session dict (check if user loged in)
     if 'user' in request.session:
     
+        # from Verify form from pgrep html 
         if request.method == "POST":
             repokey = request.POST.get('repokey')
             reportpg = Tblrepo.objects.get(pk=repokey)
@@ -68,14 +69,34 @@ def encounter(request, labkey):
             total_payment = x['amount__sum']            
             if total_payment:
                 due = total  - (total_payment + e.disc)
+            elif total:
+                due = total - e.disc
             else:
-                due = total - e.disc      
-            return render(request, 'report\encounter.html', {"e" : e, "total": total, "investigations":investigation, "reports":reports, "payments" : payments, "total_payment":total_payment, "due":due, "user":request.session['user']} )
+                due = -e.disc
+            n_disc = 0
+            if e.disc:
+                n_disc = -e.disc
+
+       
+            return render(request, 'report\encounter.html', {"e" : e, "total": total, "investigations":investigation, "reports":reports, "payments" : payments, "total_payment":total_payment, "due":due, "user":request.session['user'], "n_disc":n_disc} )
 
     else:
         return render(request, "report/login.html", {
                 "message": "Please Login."
             })
+
+def editrate(request, invkey):
+
+        if 'user' in request.session:
+
+            if request.method == "POST":
+                inv = Tblinv.objects.get(pk=invkey)
+                labkey = inv.labkey.labkey
+                inv.rate = request.POST.get(inv.item)
+                inv.save()
+
+
+            return HttpResponseRedirect(reverse("encounter",  args=[labkey]))
 
 def report(request, repokey):
 

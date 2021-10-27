@@ -5,16 +5,16 @@
 
     // on selecting date the submit button activated from disabled 
     document.getElementById('addeditdiscountinput').addEventListener('change', function () {
-    //console.log(document.querySelector('#datesubmit'))
-    //alert("datechanged")
-    document.querySelector('#addeditdiscountsubmit').disabled = false;
-    });
+        //console.log(document.querySelector('#datesubmit'))
+        //alert("datechanged")
+        document.querySelector('#addeditdiscountsubmit').disabled = false;
+        });
 
     document.getElementById('addpayment').addEventListener('change', function () {
-    //console.log(document.querySelector('#datesubmit'))
-    //alert("datechanged")
-    document.querySelector('#addpaysubmit').disabled = false;
-    });
+        //console.log(document.querySelector('#datesubmit'))
+        //alert("datechanged")
+        document.querySelector('#addpaysubmit').disabled = false;
+        });
 
 
 
