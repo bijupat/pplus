@@ -10,13 +10,8 @@ from datetime import timedelta
 
 #time delta for 5 hours and 30 min
 #TIME_DELTA530 = timedelta(days= 0, hours = 5, minutes = 30)
-#initialise empty USER set
-USERS=[]
-#Getting all mstopr object with only five colums 'oprkey', 'oprid', 'oprname', 'pw', 'active'
-USEROBJS = Mstopr.objects.all().values('oprkey', 'oprid', 'oprname', 'pw', 'active')
-#adding users in USERS set
-for USER in USEROBJS:
-    USERS.append(USER['oprid'])
+#declaring users list by oprkey who can verify reports
+VERIFY_ALLOWED_USERS = [5]
 
 def index(request):
 
@@ -76,6 +71,7 @@ def encounter(request, labkey):
             n_disc = 0
             if e.disc:
                 n_disc = -e.disc
+           
 
        
             return render(request, 'report\encounter.html', {"e" : e, "total": total, "investigations":investigation, "reports":reports, "payments" : payments, "total_payment":total_payment, "due":due, "user":request.session['user'], "n_disc":n_disc} )
@@ -117,13 +113,16 @@ def report(request, repokey):
             return HttpResponseRedirect(reverse("report",  args=[repokey]))       
 
         if request.method == "GET":
-
-            tests = Tbltests.objects.filter(repokey=repokey)
+            #getting tests from paritcular report and odering by eorder fiels of table
+            tests = Tbltests.objects.filter(repokey=repokey).order_by('eorder')
             labkey = tests[0].repokey.labkey.labkey
             reporttitle = tests[0].repokey.title
             e = Tbllab.objects.get(pk=labkey)
+             #print(request.session["oprkey"])
+            can_verify = request.session["oprkey"] in VERIFY_ALLOWED_USERS
+            #print(can_verify)
 
-            return render(request, 'report\pgrep.html', {"tests" : tests, "e" : e , "reporttitle" :reporttitle, "repokey":repokey, "user":request.session['user'] })
+            return render(request, 'report\pgrep.html', {"tests" : tests, "e" : e , "reporttitle" :reporttitle, "repokey":repokey, "user":request.session['user'], "can_verify":can_verify })
     
     else:
         return render(request, "report/login.html", {
@@ -160,11 +159,19 @@ def addpayment (request, labkey):
 def login_view(request):
 
     if request.method == "POST":
+        #initialise empty USER set
+        users=[]
+        #Getting all mstopr object with only five colums 'oprkey', 'oprid', 'oprname', 'pw', 'active'
+        userobjs = Mstopr.objects.all().values('oprkey', 'oprid', 'oprname', 'pw', 'active')
+        #adding users in USERS set
+        for user in userobjs:
+            users.append(user['oprid'])
+
         # getting vaues from post form
         username = request.POST["username"]
         password = request.POST["password"]
         #cheking if username in global variable USERS set line 16
-        if username in USERS:
+        if username in users:
             userobj = Mstopr.objects.filter(oprid=username)
             pw = userobj[0].pw
             # cheking pw and if user is active

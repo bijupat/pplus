@@ -1,49 +1,58 @@
 {% extends "report/layout.html" %}
 {% load static %}
 {% block title %}Index{% endblock %}
+{% block head %}
+{% endblock %}
 {% block body %}
- 
 
-    <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="input-group flex-nowrap">
-            <label class="input-group-text" id="addon-wrapping" for="date">Select Date:</label>
-            <input class="form-control" type="date" id="date_select" name="date" aria-describedby="addon-wrapping">
-            <input  disabled id = "datesubmit" class="btn btn-primary btn-sm" type="submit">
-        </div>
-    </form>
-    <br>
-
-    <h5>Patient Listed for  : {{date|default:"Today"}}</h5>
-    <div class="list-group">
-        {% for e in encounter %}
-            <a href= {% url 'encounter' e.labkey %} class="list-group-item list-group-item-action" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                    <h6 class="mb-1">{{e.sampno}}/{{e.labkey}} : {{e.dor|date}} : {{e.fname}} {{e.mname}} {{e.lname}} </h6>
-                    <small>{{e.account}}.</small>
-                    <small>{{e.refdr.drname}}</small>
-                    <small>
-                        <ol>
-                            {% for t in e.Tblinv.all %}
-                            <li>{{t.item}} : {{t.rate}}</li>
-                            {% endfor %}
-                        </ol>
-                    </small>
-                </div>
-            </a>
-            {% empty %}
-            No Patient Listed!
-            {% endfor %}
+<div>
+<form action="{% url 'index' %}" method="post">
+    {% csrf_token %}
+    <div class="input-group flex-nowrap">
+        <label class="input-group-text" id="addon-wrapping" for="date">Select Date:</label>
+        <input class="form-control" type="date" id="date_select" name="date" aria-describedby="addon-wrapping">
+        <input  disabled id = "datesubmit" class="btn btn-primary btn-sm" type="submit">
     </div>
- <div>
-</div>
-    </p>
+</form>
+<br>
+
+<h5>Patient Listed For  : {{date|default:"Today"}} </h5>
+<br>
+
+{% for e in encounter %}
+    <div class="card">
+    <div class="card-header">
+        <div class="row row-cols-auto">
+            <div class="col">{{e.sampno}}</div>
+            <div class="col">{{e.prefix}}-{{e.labno}}</div>
+            <div class="col">Mo:{{e.mobile4sms}}</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <a href= {% url 'encounter' e.labkey %} aria-current="true">
+            <h5 class="card-title">{{e.fname}} {{e.mname}} {{e.lname}}</h5>
+        </a>
+        <div class="row row-cols-auto">
+            <div class="col">{{e.refdr.drname}}</div>
+            <div class="col">{{e.acckey.accname}}</div>
+        </div>
+    </div>
+    </div>
+{% empty %}
+No Patient Listed!
+{% endfor %}
+
+
+
 <script>
 document.getElementById('date_select').addEventListener('change', function () {
     //console.log(document.querySelector('#datesubmit'))
     document.querySelector('#datesubmit').disabled = false;
     });
 </script>
+
+
+
 {% endblock %}
 
 
