@@ -14,6 +14,8 @@ or project to the 'sql_server.pyodbc' module path
 GO TO SETTING.PY FILE
 And change database setting
 
+
+for lenovo laptop:
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
@@ -27,6 +29,20 @@ DATABASES = {
             'driver': 'ODBC Driver 13 for SQL Server',
         },
     },
+}
+for lab 1 desktop
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME':'TESTDB',
+        'USER': 'SA',
+        'PASSWORD': 'LETMEIN',
+        'HOST': 'localhost',
+        'OPTIONS': {
+            'driver': 'SQL Server Native Client 10.0',
+        }
+    }
 }
 
 # set this to False if you want to turn off pyodbc's connection pooling

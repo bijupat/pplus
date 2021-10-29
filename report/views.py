@@ -59,8 +59,8 @@ def encounter(request, labkey):
             p = investigation.all().aggregate(Sum('rate'))
             total = p['rate__sum']
             reports = Tblrepo.objects.filter(labkey=labkey)
-            payments = Tblpay.objects.filter(labkey=labkey)
-            x = payments.all().aggregate(Sum('amount'))
+            receipts = Tblpay.objects.filter(labkey=labkey)
+            x = receipts.all().aggregate(Sum('amount'))
             total_payment = x['amount__sum']            
             if total_payment:
                 due = total  - (total_payment + e.disc)
@@ -71,7 +71,17 @@ def encounter(request, labkey):
             n_disc = 0
             if e.disc:
                 n_disc = -e.disc
-           
+            # delclairing empty set to pass to template
+            payments = []
+            # populating payment set with dictionary of reciepts ; userid need diffent implementation 
+            for pay in receipts:
+                dict= {}
+                dict['paidon'] = pay.paidon
+                dict['recpno'] = pay.recpno
+                dict['amount'] = pay.amount
+                dict['userid'] = Mstopr.objects.get(pk=pay.oprkey).oprid
+                payments.append(dict)
+
 
        
             return render(request, 'report\encounter.html', {"e" : e, "total": total, "investigations":investigation, "reports":reports, "payments" : payments, "total_payment":total_payment, "due":due, "user":request.session['user'], "n_disc":n_disc} )
@@ -121,8 +131,12 @@ def report(request, repokey):
              #print(request.session["oprkey"])
             can_verify = request.session["oprkey"] in VERIFY_ALLOWED_USERS
             #print(can_verify)
+            report = Tblrepo.objects.get(pk=repokey)
+            can_enter = False
+            if report.status < 2 or can_verify:
+                can_enter = True
 
-            return render(request, 'report\pgrep.html', {"tests" : tests, "e" : e , "reporttitle" :reporttitle, "repokey":repokey, "user":request.session['user'], "can_verify":can_verify })
+            return render(request, 'report\pgrep.html', {"tests" : tests, "e" : e , "reporttitle" :reporttitle, "repokey":repokey, "user":request.session['user'], "can_verify":can_verify, "can_enter":can_enter })
     
     else:
         return render(request, "report/login.html", {
@@ -179,6 +193,7 @@ def login_view(request):
                 #appending global variable ACTIVEUSER set with current  validated usreobject
                 request.session['user'] = userobj[0].oprname
                 request.session['oprkey'] = userobj[0].oprkey
+                request.session['userid'] = userobj[0].oprid
                 encounter_today = Tbllab.objects.filter(dor__date=datetime.today().date())
                 return HttpResponseRedirect(reverse("index"))
             else:

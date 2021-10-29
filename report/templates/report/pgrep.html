@@ -27,7 +27,9 @@
       {% csrf_token %}
       <li  class="list-group-item d-flex justify-content-between align-items-center testname">
         <label for="testname">{{t.test}}:</label>
+        {% if can_enter %}
         <input  type= "submit" value = "Update">
+        {% endif %}
       </li>
       <li  class="list-group-item d-flex justify-content-between align-items-center testname">
         <input style="width:100%" name= "result" placeholder = "{{t.result}}">
@@ -53,5 +55,6 @@
 <div align="center">
   <a href={% url 'encounter' e.labkey %} style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%">Back</a>
 </div>
+
 {% endblock %}
 
