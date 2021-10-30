@@ -871,8 +871,8 @@ class Msttests(models.Model):
     tatinmm = models.SmallIntegerField(db_column='TATinMM')  # Field name made lowercase.
     formula = models.CharField(db_column='Formula', max_length=200, blank=True, null=True)  # Field name made lowercase.
     vrule = models.CharField(db_column='VRule', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    vmsg = models.CharField(db_column='VMsg', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    vrulemust = models.BooleanField(db_column='VRuleMust', blank=True, null=True)  # Field name made lowercase.
+    vmsg = models.CharField(db_column='VMsg', max_length=30, blank=True, null=True)  # Validation Message.
+    vrulemust = models.BooleanField(db_column='VRuleMust', blank=True, null=True)  # Validation if must ?.
 
     class Meta:
         managed = False

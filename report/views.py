@@ -81,15 +81,48 @@ def encounter(request, labkey):
                 dict['amount'] = pay.amount
                 dict['userid'] = Mstopr.objects.get(pk=pay.oprkey).oprid
                 payments.append(dict)
-
+            can_verify = request.session["oprkey"] in VERIFY_ALLOWED_USERS
 
        
-            return render(request, 'report\encounter.html', {"e" : e, "total": total, "investigations":investigation, "reports":reports, "payments" : payments, "total_payment":total_payment, "due":due, "user":request.session['user'], "n_disc":n_disc} )
+            return render(request, 'report\encounter.html', {"e" : e, "total": total, "investigations":investigation, "reports":reports, "payments" : payments, "total_payment":total_payment, "due":due, "user":request.session['user'], "n_disc":n_disc,"can_verify":can_verify} )
 
     else:
         return render(request, "report/login.html", {
                 "message": "Please Login."
             })
+
+
+def reportview(request, labkey):
+
+    if 'user' in request.session:
+
+        if request.method == "GET":
+            e = Tbllab.objects.get(pk=labkey)
+            reports = Tblrepo.objects.filter(labkey=labkey)
+            #repokey_list =[]
+            #for report in reports:
+            #   repokey_list.append(report.repokey)
+            #tests = Tbltests.objects.filter(repokey__in=repokey_list).order_by('repokey', 'eorder')
+            repokey_verified_list = []
+            for report in reports:
+                if report.status > 1:
+                    print(report.status)
+                    repokey_verified_list.append(report.repokey)
+            print(repokey_verified_list)
+            tests_verified = Tbltests.objects.filter(repokey__in=repokey_verified_list).order_by('repokey', 'eorder')
+            print(tests_verified)
+
+
+            return render(request, 'report/alltests.html' , {"tests" : tests_verified, "e" : e , "user":request.session['user']})
+
+
+
+
+    else:
+        return render(request, "report/login.html", {
+            "message": "Please Login."
+            })
+
 
 def editrate(request, invkey):
 
@@ -211,4 +244,5 @@ def login_view(request):
 def logout_view(request):
     request.session.flush()
     return HttpResponseRedirect(reverse("login"))
+
 

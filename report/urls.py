@@ -11,6 +11,9 @@ urlpatterns = [
     path("", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("editrate/<int:invkey>", views.editrate, name="editrate"),
+    path('reportview/<int:labkey>/', views.reportview, name='reportview'),
+
+    
 
 ]
 

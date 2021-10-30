@@ -1,0 +1,53 @@
+
+
+{% extends "report/layout.html" %}
+{% load static %}
+{% block title %}Index{% endblock %}
+{% block body %}
+
+<!-- 
+<div class="card text-left">
+    <div class="card-header">
+        <div class="row row-cols-auto">
+            <div class="col">{{e.dor|date}}</div>
+            <div class="col">Lab No:{{e.prefix}}/{{e.plkey}}</div>
+            <div class="col">Samp No:{{e.sampno}}</div>
+        </div>        
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">Patient Name: <h6>{{e.fname}} {{e.mname}} {{e.lname}} </h6></div>
+            <div class="col-6">Ref by :<h6> {{e.refdr.title}} {{e.refdr.drname}} </h6></div>
+        </div>
+    </div>
+</div>
+-->
+<div class="card text-center">
+
+<div >  
+   {{e.dor|date:"d/m/Y" }}&emsp;&emsp;{{e.sampno}}&emsp;&emsp;{{e.fname}} {{e.mname}} {{e.lname}}
+</div>
+</div>
+
+<div class="card text-left" >
+  {% for t in tests %}
+      <!-- if test for SMS Is Selected -->
+      {% if t.test4sms and t.result %}
+      <li>
+        <!-- {{t.repokey.title}}::-->{{t.test4sms}}: {{t.result}}
+      </li>
+      {% endif %}
+  {% empty %}
+    <li>No Verified Test !</li>
+  {% endfor %}
+</div>
+<br>
+  <br>
+  <br>
+<br>
+  <br>
+<div align="center">
+  <a href={% url 'encounter' e.labkey %} style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%">Back</a>
+</div>
+{% endblock %}
+
