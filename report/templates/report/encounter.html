@@ -8,7 +8,7 @@
 <div class="card text-left">
     <div class="card-header">
             <div class="row row-cols-auto">
-            <div class="col">{{e.dor|date}}</div>
+            <div class="col">{{e.dor|date:"d/m/Y"}}</div>
             <div class="col">Lab No:{{e.prefix}}/{{e.plkey}}</div>
             <div class="col">Samp No:{{e.sampno}}</div>
         </div>        
@@ -20,13 +20,8 @@
         </div>
     </div>
 </div>
-<!-- check if patient is FOC -->
-{% if e.foc %}
-<div class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
-                                     
-    <span>FOC</span>
-</div> 
-{% else %}
+
+
 <table class="table table-light table-striped">
     <thead>
             <tr>
@@ -62,7 +57,18 @@
         </tr>
     </tbody>
 </table>
-
+<!-- check if patient is FOC -->
+{% if e.foc %}
+<div class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
+                                     
+    <span>FOC</span>
+</div> 
+{% elif e.periodic %}
+<div class="list-group-item d-flex justify-content-between align-items-center list-group-item-info">
+                                     
+    <span>Periodic Account : {{e.acckey.accname}}</span>
+</div> 
+{% else %}
 <div class="list-group-item d-flex justify-content-between align-items-center list-group-item-warning">
     Discount
     {% if can_verify %}
@@ -73,7 +79,7 @@
         <input disabled type= "submit" id="addeditdiscountsubmit" class="btn btn-outline-primary btn-sm" value = "Change">
       </form> 
     </div>
-    {% else %}
+  
     {% endif %}
     <span> 
         {{ e.disc|default:0 }}
@@ -108,7 +114,7 @@
             <tbody>
 			 {% for payment in payments %}
              		<tr>
-                    <td scope="col">{{payment.paidon|date}}</td>
+                    <td scope="col">{{payment.paidon|date:"d/m/Y"}}</td>
                     <td scope="col">{{payment.userid}}</td>
                     <td scope="col">{{payment.recpno}}</td>
                     <td scope="col">{{payment.amount}}</td>
@@ -162,13 +168,13 @@
                     </td>
                     <td scope="col">
                         {% if r.status == 4 %}
-                        <span>{{r.delivat}}</span>
+                        <span>{{r.delivat|date:"d/m/Y"}} at {{ r.delivat|time:"H:i" }}</span>
                         {% elif r.status == 3 %}
-                        <span >{{r.printdt}}</span>
+                        <span >{{r.printdt|date:"d/m/Y"}} at {{ r.printdt|time:"H:i" }}</span>
                         {% elif r.status == 2 %}
-                        <span >{{r.verifydt}}</span>
+                        <span >{{r.verifydt|date:"d/m/Y"}} at {{ r.verifydt|time:"H:i" }}</span>
                         {% elif r.status == 1 %}
-                        <span >{{r.entrydt}}</span> 
+                        <span >{{r.entrydt|date:"d/m/Y"}} at {{ r.entrydt|time:"H:i" }}</span> 
                         {% elif r.status == 0 %}
                         {% endif %}
                     </td>
@@ -189,7 +195,7 @@
 <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div align="center">
-        <input type = "hidden" value = "{{e.dor|date:"Y"}}-{{e.dor|date:"m"}}-{{e.dor|date:"d"}}" type="date" id="date_select" name="date" aria-describedby="addon-wrapping">
+        <input type = "hidden" value = "{{e.dor|date:"Y-m-d"}}" type="date" id="date_select" name="date" aria-describedby="addon-wrapping">
         <input  id = "datesubmit" style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%" type="submit" value = "Back">
     </div>
 </form>

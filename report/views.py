@@ -106,11 +106,11 @@ def reportview(request, labkey):
             repokey_verified_list = []
             for report in reports:
                 if report.status > 1:
-                    print(report.status)
+                    #print(report.status)
                     repokey_verified_list.append(report.repokey)
-            print(repokey_verified_list)
+            #print(repokey_verified_list)
             tests_verified = Tbltests.objects.filter(repokey__in=repokey_verified_list).order_by('repokey', 'eorder')
-            print(tests_verified)
+            #print(tests_verified)
 
 
             return render(request, 'report/alltests.html' , {"tests" : tests_verified, "e" : e , "user":request.session['user']})
