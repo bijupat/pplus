@@ -20,13 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(os.path.join(BASE_DIR,'secret_key.txt')) as f:
-    SECRET_KEY = f.read().strip()
+SECRET_KEY = 'ff$aiu5ldt&b8gx&riu9&t3r6@yz90c4q9m53s)^v=g%sc@4k2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.102.151']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -50,11 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# You have 'django.middleware.clickjacking.XFrameOptionsMiddleware' in your MIDDLEWARE, 
-# but X_FRAME_OPTIONS is not set to 'DENY'. The default is 'SAMEORIGIN', 
-# but unless there is a good reason for your site to serve other parts of itself in a frame, 
-# you should change it to 'DENY'.  
-X_FRAME_OPTIONS = 'DENY'
+
 ROOT_URLCONF = 'pplus.urls'
 
 TEMPLATES = [
@@ -79,14 +74,12 @@ WSGI_APPLICATION = 'pplus.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-with open(os.path.join(BASE_DIR,'db_password.txt')) as f:
-    PASSWORD = f.read().strip()
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'NAME':'MEDI201819NEW',
+        'NAME':'TESTDB',
         'USER': 'SA',
-        'PASSWORD': PASSWORD,
+        'PASSWORD': 'LETMEIN',
         'HOST': '192.168.102.150',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -132,10 +125,3 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-#defining static root folder to collect files all static files in one location for production
-STATIC_ROOT = os.path.join(BASE_DIR,'static/')
-
-#https settings
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-#SECURE_SSL_REDIRECT = True
