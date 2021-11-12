@@ -26,7 +26,7 @@ with open(os.path.join(BASE_DIR,'secret_key.txt')) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.102.151', '122.179.129.85']
+ALLOWED_HOSTS = ['192.168.102.151', '122.179.129.85', '127.0.0.1']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'report.apps.ReportConfig',
+    'myweb.apps.MywebConfig',
 ]
 
 MIDDLEWARE = [
