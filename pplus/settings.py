@@ -20,12 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ff$aiu5ldt&b8gx&riu9&t3r6@yz90c4q9m53s)^v=g%sc@4k2'
+with open(os.path.join(BASE_DIR,'secret_key.txt')) as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.102.151', '122.179.129.85']
 
 
 # Application definition
@@ -73,13 +74,15 @@ WSGI_APPLICATION = 'pplus.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+with open(os.path.join(BASE_DIR,'db_password.txt')) as f:
+    PASSWORD = f.read().strip()
 
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'NAME':'TESTDB',
+        'NAME':'MEDI201819NEW',
         'USER': 'SA',
-        'PASSWORD': 'LETMEIN',
+        'PASSWORD': PASSWORD,
         'HOST': '192.168.102.150',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -125,3 +128,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+#defining static root folder to collect files all static files in one location for production
+STATIC_ROOT = os.path.join(BASE_DIR,'static/')
+
+
+#https settings/ activate when  SSL aquired !!
+#CSRF_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
+#SECURE_SSL_REDIRECT = True
