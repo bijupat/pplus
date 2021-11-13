@@ -51,7 +51,7 @@ def encounter(request, labkey):
             reportpg.save()
          
 
-            return HttpResponseRedirect(reverse("encounter",  args=[labkey]))
+            return HttpResponseRedirect(reverse("report:encounter",  args=[labkey]))
 
         if request.method == "GET":
             e = Tbllab.objects.get(pk=labkey)
@@ -135,7 +135,7 @@ def editrate(request, invkey):
                 inv.save()
 
 
-            return HttpResponseRedirect(reverse("encounter",  args=[labkey]))
+            return HttpResponseRedirect(reverse("report:encounter",  args=[labkey]))
 
 def report(request, repokey):
 
@@ -153,7 +153,7 @@ def report(request, repokey):
             # getting labkey of the test associated pass to args for reverse
             repokey = test.repokey.repokey
 
-            return HttpResponseRedirect(reverse("report",  args=[repokey]))       
+            return HttpResponseRedirect(reverse("report:report",  args=[repokey]))       
 
         if request.method == "GET":
             #getting tests from paritcular report and odering by eorder fiels of table
@@ -183,7 +183,7 @@ def discount (request, labkey):
         e.disc = request.POST.get('addeditdiscountinput')
         e.save()
 
-        return HttpResponseRedirect(reverse("encounter",  args=[labkey]))
+        return HttpResponseRedirect(reverse("report:encounter",  args=[labkey]))
 
 
 def addpayment (request, labkey):
@@ -200,7 +200,7 @@ def addpayment (request, labkey):
         #create new Tblpay object instance
         new_pay = Tblpay.objects.create(labkey=e, paidon = paidon, recpno=recpno, amount=amount, cash = True, printed= False, oprkey = request.session['oprkey'] , paymode = 0)
         
-        return HttpResponseRedirect(reverse("encounter",  args=[labkey]))
+        return HttpResponseRedirect(reverse("report:encounter",  args=[labkey]))
 
 
 def login_view(request):
@@ -228,7 +228,7 @@ def login_view(request):
                 request.session['oprkey'] = userobj[0].oprkey
                 request.session['userid'] = userobj[0].oprid
                 encounter_today = Tbllab.objects.filter(dor__date=datetime.today().date())
-                return HttpResponseRedirect(reverse("index"))
+                return HttpResponseRedirect(reverse("report:index"))
             else:
                 return render(request, "report/login.html", {
                 "message": "Invalid Password."
@@ -243,6 +243,6 @@ def login_view(request):
 
 def logout_view(request):
     request.session.flush()
-    return HttpResponseRedirect(reverse("login"))
+    return HttpResponseRedirect(reverse("report:login"))
 
 

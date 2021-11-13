@@ -5,6 +5,6 @@ def index(request):
 
     #return HttpResponse("Hello, world. You're at the polls index.")
                 
-    return render(request, 'myweb\contactus.html')
+    return render(request, 'myweb\index.html')
 
  

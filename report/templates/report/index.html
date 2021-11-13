@@ -6,7 +6,7 @@
 {% block body %}
 
 <div>
-<form action="{% url 'index' %}" method="post">
+<form action="{% url 'report:index' %}" method="post">
     {% csrf_token %}
     <div class="input-group flex-nowrap">
         <label class="input-group-text" id="addon-wrapping" for="date">Select Date:</label>
@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="card-body">
-        <a href= {% url 'encounter' e.labkey %} aria-current="true">
+        <a href= {% url 'report:encounter' e.labkey %} aria-current="true">
             <h5 class="card-title">{{e.fname}} {{e.mname}} {{e.lname}}</h5>
         </a>
         <div class="row row-cols-auto">
