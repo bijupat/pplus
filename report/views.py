@@ -157,9 +157,9 @@ def report(request, repokey):
 
         if request.method == "GET":
             #getting tests from paritcular report and odering by eorder fiels of table
-            tests = Tbltests.objects.filter(repokey=repokey).order_by('eorder')
-            labkey = tests[0].repokey.labkey.labkey
-            reporttitle = tests[0].repokey.title
+            tests_temp = Tbltests.objects.filter(repokey=repokey).order_by('eorder')
+            labkey = tests_temp[0].repokey.labkey.labkey
+            reporttitle = tests_temp[0].repokey.title
             e = Tbllab.objects.get(pk=labkey)
              #print(request.session["oprkey"])
             can_verify = request.session["oprkey"] in VERIFY_ALLOWED_USERS
@@ -168,6 +168,23 @@ def report(request, repokey):
             can_enter = False
             if report.status < 2 or can_verify:
                 can_enter = True
+
+            #t.test t.result t.testkey t.options
+            # populating  dictionary of test ; options  need to  implementated as set
+            tests = []
+            for t in tests_temp:
+                dict={}
+                dict['test'] = t.test
+                dict['result'] = t.result
+                dict['testkey'] = t.testkey
+                options= []
+                for option in t.options.split('|'):
+                    if len(option) > 4:
+                        options.append(option)
+                dict['options'] = options
+                tests.append(dict)
+           
+
 
             return render(request, 'report\pgrep.html', {"tests" : tests, "e" : e , "reporttitle" :reporttitle, "repokey":repokey, "user":request.session['user'], "can_verify":can_verify, "can_enter":can_enter })
     
