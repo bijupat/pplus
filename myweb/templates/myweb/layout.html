@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+
+
+<head>
+<!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--import static files-->    
+
+  <link href="{% static 'myweb\menustyles.css' %}" rel="stylesheet">
+  <link href="{% static 'myweb\bodystyle.css' %}" rel="stylesheet">
+
+  {% block head %}{% endblock %}
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  <div>
+    <div class="topfloat">
+      <div class="container">
+        <div class="image">
+          <img src="{% static 'myweb\HOSPIMAX.jpg' %}" id="imagehead" alt="Hospimax Consultancy"  title=" Hospimax Consultancy">
+        </div>
+        <div>
+          <ul class="topnav">
+            <li><a class="active" href={% url 'myweb:index'  %}>Home</a></li>
+            <li class="dropdown">
+              <a href="javascript:void(0)" class="dropbtn">Services</a>
+              <div class="dropdown-content">
+                <a href={% url 'myweb:user_defined' %}>Custom healthcare software for healthcare units</a>
+                <a href={% url 'myweb:appdev' %}>Application Development & Support</a>
+                <a href={% url 'myweb:intauto' %}>Intelligent Automation in Healthcare</a>
+                <a href={% url 'myweb:workimp' %}>Custom Diagnostics center management system </a>
+                <a href={% url 'myweb:telehealth' %}>Tele-health & Virtual Health system development</a>
+                <a href={% url 'myweb:website' %}>Website and web application development</a>
+                <a href={% url 'myweb:qa' %}>Quality assurance for new or existing healthcare system</a>
+              </div>
+            </li>
+            <li class="dropdown">
+              <a href="javascript:void(0)" class="dropbtn">Our Team</a>
+              <div class="dropdown-content">
+                <a href={% url 'myweb:promotor' %}>Promoter</a>
+                <a href={% url 'myweb:coreteam' %}>Core Team</a>
+              </div>
+            </li>
+            <li class="right"><a href={% url 'myweb:inquiry' %}>Send Inquiry</a></li>
+            <li class="right"><a href={% url 'myweb:contactus' %}>Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% block body %}
+{% endblock %}
+
+</body>
+
+
+
+
+
+</html>

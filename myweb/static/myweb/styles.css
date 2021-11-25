@@ -1,0 +1,37 @@
+.para{
+    background-color: #F0F8FF;
+    color: #663399;
+    font-family: verdana;
+    font-size: 100%;
+    border: 1px solid powderblue;
+    padding: 30px;
+
+}
+.head{
+    color: #00008B;
+    font-size: 120%;
+    padding: 30px;
+    font-weight: bold;
+    font-family: Georgia, sans-serif;
+
+}
+#error{
+    color: red;
+    font-weight: bold;
+}
+* {
+  border-radius: 7px;
+}
+.back:hover{
+    color: red;
+    font-size: 120%;
+}
+
+#feedback{
+  margin-left: 50px;
+  width: 50%;
+  background-color: #F0F8FF;
+}
+.back{
+    margin-left: 50px;
+}
