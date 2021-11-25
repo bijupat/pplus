@@ -53,5 +53,8 @@ to open ODBC Data Source Administrator(to check ODBC Drivce used in your system)
 Show the Run dialog using Windows+R, type odbcad32 and tap OK.
 A window will open. go  to server tab to check ODBC version.
 **********************************************************************
+TO LOOK AT ERROR LOG ON NGINX SERVER
+
+sudo tail -30 /var/log/nginx/error.log
 
 
