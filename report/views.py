@@ -26,7 +26,7 @@ def index(request):
         if request.method == 'POST':
             date = request.POST["date"]
             encounter_date = Tbllab.objects.filter(dor__date=date)
-            return render(request, 'report\index.html', {"encounter" :encounter_date, "date" : date, "user":request.session['user']})
+            return render(request, 'report/index.html', {"encounter" :encounter_date, "date" : date, "user":request.session['user']})
             
     else:
         return render(request, "report/login.html", {
@@ -84,7 +84,7 @@ def encounter(request, labkey):
             can_verify = request.session["oprkey"] in VERIFY_ALLOWED_USERS
 
        
-            return render(request, 'report\encounter.html', {"e" : e, "total": total, "investigations":investigation, "reports":reports, "payments" : payments, "total_payment":total_payment, "due":due, "user":request.session['user'], "n_disc":n_disc,"can_verify":can_verify} )
+            return render(request, 'report/encounter.html', {"e" : e, "total": total, "investigations":investigation, "reports":reports, "payments" : payments, "total_payment":total_payment, "due":due, "user":request.session['user'], "n_disc":n_disc,"can_verify":can_verify} )
 
     else:
         return render(request, "report/login.html", {
@@ -186,7 +186,7 @@ def report(request, repokey):
            
 
 
-            return render(request, 'report\pgrep.html', {"tests" : tests, "e" : e , "reporttitle" :reporttitle, "repokey":repokey, "user":request.session['user'], "can_verify":can_verify, "can_enter":can_enter })
+            return render(request, 'report/pgrep.html', {"tests" : tests, "e" : e , "reporttitle" :reporttitle, "repokey":repokey, "user":request.session['user'], "can_verify":can_verify, "can_enter":can_enter })
     
     else:
         return render(request, "report/login.html", {
