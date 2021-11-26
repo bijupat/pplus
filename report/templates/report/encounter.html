@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block title %}Encounter {{e.id}}{% endblock %}
+{% block head %}        
+    <script src="{% static 'report/scripts.js' %}" defer></script>
+{% endblock head %}
 
 {% block body %}
 
