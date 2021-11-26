@@ -26,7 +26,7 @@ with open(os.path.join(BASE_DIR,'secret_key.txt')) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.102.151', '122.179.129.85', '127.0.0.1']
+ALLOWED_HOSTS = ['122.179.129.85', '127.0.0.1']
 
 
 # Application definition
@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'report.apps.ReportConfig',
-    'myweb.apps.MywebConfig',
+    'report',
+    'myweb',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'pplus.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [(os.path.join(BASE_DIR, 'templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,7 +80,7 @@ with open(os.path.join(BASE_DIR,'db_password.txt')) as f:
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
+        'ENGINE': 'mssql',
         'NAME':'MEDI201819NEW',
         'USER': 'SA',
         'PASSWORD': PASSWORD,
@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'ASIA/CALCUTTA'
+TIME_ZONE = 'Asia/Calcutta'
 
 USE_I18N = True
 
@@ -132,8 +132,10 @@ STATIC_URL = '/static/'
 #defining static root folder to collect files all static files in one location for production
 STATIC_ROOT = os.path.join(BASE_DIR,'static/')
 
+MEDIA_URL='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
 #https settings/ activate when  SSL aquired !!
 #CSRF_COOKIE_SECURE = True
 #SESSION_COOKIE_SECURE = True
-#SECURE_SSL_REDIRECT = True
+#SECURE_SSL_REDIRECT = False
