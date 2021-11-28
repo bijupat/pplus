@@ -6,6 +6,8 @@
 {% block body %}
 
 <div>
+<!--form section will only be loaded if index is true (if this file rendered from index view) -->
+{% if index %}
 <form action="{% url 'report:index' %}" method="post">
     {% csrf_token %}
     <div class="input-group flex-nowrap">
@@ -15,7 +17,11 @@
     </div>
 </form>
 <br>
-
+{% else %}
+<div align="center">
+    <a href={% url 'report:find'  %} style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%">Find Other</a>
+</div>
+{% endif %}
 <h5>Patient Listed For  : {{date|default:"Today"}} </h5>
 <br>
 
@@ -23,7 +29,7 @@
     <div class="card">
     <div class="card-header">
         <div class="row row-cols-auto">
-            <div class="col">{{e.sampno}}</div>
+            <div class="col">{% if not index %}{{e.dor|date:"d/m/Y"}} : : {% endif %}{{e.sampno}}</div>
             <div class="col">{{e.prefix}}-{{e.labno}}</div>
             <div class="col">Mo:    {{e.mobile4sms}}</div>
         </div>

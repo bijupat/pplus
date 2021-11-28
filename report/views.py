@@ -20,13 +20,13 @@ def index(request):
 
         if request.method == 'GET':
             encounter_today = Tbllab.objects.filter(dor__date=datetime.today().date())
-            return render(request, 'report/index.html' , {"encounter" :encounter_today, "user":request.session['user']})
+            return render(request, 'report/index.html' , {"encounter" :encounter_today, "index":True,"user":request.session['user']})
     
 
         if request.method == 'POST':
             date = request.POST["date"]
             encounter_date = Tbllab.objects.filter(dor__date=date)
-            return render(request, 'report/index.html', {"encounter" :encounter_date, "date" : date, "user":request.session['user']})
+            return render(request, 'report/index.html', {"encounter" :encounter_date, "index":True, "date" : date, "user":request.session['user']})
             
     else:
         return render(request, "report/login.html", {
@@ -256,6 +256,41 @@ def login_view(request):
             })
     else:
         return render(request, "report/login.html")
+
+def find(request):
+    # checking if user key is in request.session dict(check if user loged in)
+    if 'user' in request.session:
+        if request.method == "GET":
+            return render(request,"report/find.html")
+
+        if request.method == "POST":
+            fname = request.POST.get('find_fname')
+            lname = request.POST.get("find_lname")
+            smpno = request.POST.get("find_smpno")
+            mobno = request.POST.get("find_mobno")
+
+            if fname and lname:
+                date=f"Find F Name '{fname}' and L Name '{lname}'"
+                encounter_find = Tbllab.objects.filter(fname__icontains=fname).filter(lname__icontains=lname)
+            elif fname:
+                date=f"Find F Name '{fname}'"
+                encounter_find = Tbllab.objects.filter(fname__icontains=fname)
+            elif lname:
+                date=f"Find L Name '{lname}'"
+                encounter_find = Tbllab.objects.filter(lname__icontains=lname)   
+            elif smpno and int(smpno)>0 and int(smpno)<10000:
+                date=f"Find Sample No '{smpno}'"
+                encounter_find = Tbllab.objects.filter(sampno=smpno)
+            elif mobno and len(mobno) == 10 :
+                date=f"Find Mobile no '{mobno}'"
+                encounter_find = Tbllab.objects.filter(phone=mobno)
+            else:
+                return render(request,"report/find.html",{"message":"Invalid Input for Search"})
+
+            return render(request, 'report/index.html', {"encounter" :encounter_find, "date" : date, "user":request.session['user']})
+            
+
+
 
 
 def logout_view(request):

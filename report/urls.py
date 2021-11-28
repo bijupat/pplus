@@ -14,6 +14,7 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("editrate/<int:invkey>", views.editrate, name="editrate"),
     path('reportview/<int:labkey>/', views.reportview, name='reportview'),
+    path('find/', views.find, name='find'),
 
     
 
