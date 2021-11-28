@@ -2,3 +2,4 @@ db_password.txt
 pplus/settings.py
 secret_key.txt
 /static/
+*.pyc
