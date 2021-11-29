@@ -276,13 +276,19 @@ def find(request):
 
             if fname and lname and len(fname)>2 and len(lname)>2:
                 date=f"Find F Name '{fname}' and L Name '{lname}'"
-                encounter_find = Tbllab.objects.filter(fname__icontains=fname).filter(lname__icontains=lname)
+                encounter_find = Tbllab.objects.filter(fname__icontains=fname).filter(lname__icontains=lname).order_by('-dor')
             elif fname and len(fname)>2:
-                date=f"Find F Name '{fname}'"
-                encounter_find = Tbllab.objects.filter(fname__icontains=fname)
+                if not lname:
+                    date=f"Find F Name '{fname}'"
+                    encounter_find = Tbllab.objects.filter(fname__icontains=fname).order_by('-dor')
+                else:
+                    return render(request,"report/find.html",{"message":"Please Search L name by 3 or more characters"}) 
             elif lname and len(lname)>2:
-                date=f"Find L Name '{lname}'"
-                encounter_find = Tbllab.objects.filter(lname__icontains=lname)   
+                if not fname:
+                    date=f"Find L Name '{lname}'"
+                    encounter_find = Tbllab.objects.filter(lname__icontains=lname).order_by('-dor')
+                else:
+                    return render(request,"report/find.html",{"message":"Please Search F name by 3 or more characters"})  
             elif smpno and int(smpno)>0 and int(smpno)<10000:
                 date=f"Find Sample No '{smpno}'"
                 encounter_find = Tbllab.objects.filter(sampno=smpno)

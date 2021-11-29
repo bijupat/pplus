@@ -6,17 +6,18 @@
 {% block body %}
 
 {% if message %}
-{{message}}
+<span style="background-color:red">{{message}}</span>
 {% endif %}
-
+<br>
+<br>
 <div>
 <form action="{% url 'report:find' %}" method="post">
     {% csrf_token %}
     <div class="input-group flex-nowrap">
         <label class="input-group-text" id="addon-wrapping" for="find_name"></label>
-        <input class="form-control" type="text" id="find_fname" name="find_fname" aria-describedby="addon-wrapping" placeholder="First Name:full or part">
+        <input class="form-control" type="text" id="find_fname" name="find_fname" aria-describedby="addon-wrapping" placeholder="First Name : Full or part">
         <label class="input-group-text" id="addon-wrapping" for="find_name"></label>
-        <input class="form-control" type="text"  id="find_lname" name="find_lname" aria-describedby="addon-wrapping" placeholder="Last Name:full or part">
+        <input class="form-control" type="text"  id="find_lname" name="find_lname" aria-describedby="addon-wrapping" placeholder="Last Name : Full or part">
         <input  disabled id = "find_name_sub" class="btn btn-primary btn-sm" type="submit">
     </div>
 </form>
