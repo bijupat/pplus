@@ -148,8 +148,13 @@ def report(request, repokey):
             newvalue = request.POST.get('result')
             # quering Tbltests table to get test object    
             test = Tbltests.objects.get(testkey=testkey)
-            test.result = newvalue
+            test.result = newvalue            
             test.save()
+            print(test.repokey.repokey)
+            report = Tblrepo.objects.get(repokey =  test.repokey.repokey)
+            report.entryby = request.session['oprkey']
+            report.entrydt = datetime.today()
+            report.save()
             # getting labkey of the test associated pass to args for reverse
             repokey = test.repokey.repokey
 
@@ -269,13 +274,13 @@ def find(request):
             smpno = request.POST.get("find_smpno")
             mobno = request.POST.get("find_mobno")
 
-            if fname and lname:
+            if fname and lname and len(fname)>2 and len(lname)>2:
                 date=f"Find F Name '{fname}' and L Name '{lname}'"
                 encounter_find = Tbllab.objects.filter(fname__icontains=fname).filter(lname__icontains=lname)
-            elif fname:
+            elif fname and len(fname)>2:
                 date=f"Find F Name '{fname}'"
                 encounter_find = Tbllab.objects.filter(fname__icontains=fname)
-            elif lname:
+            elif lname and len(lname)>2:
                 date=f"Find L Name '{lname}'"
                 encounter_find = Tbllab.objects.filter(lname__icontains=lname)   
             elif smpno and int(smpno)>0 and int(smpno)<10000:
