@@ -266,7 +266,7 @@ def find(request):
     # checking if user key is in request.session dict(check if user loged in)
     if 'user' in request.session:
         if request.method == "GET":
-            return render(request,"report/find.html")
+            return render(request,"report/find.html", {"user":request.session['user']})
 
         if request.method == "POST":
             fname = request.POST.get('find_fname')
@@ -282,13 +282,13 @@ def find(request):
                     date=f"Find F Name '{fname}'"
                     encounter_find = Tbllab.objects.filter(fname__icontains=fname).order_by('-dor')
                 else:
-                    return render(request,"report/find.html",{"message":"Please Search L name by 3 or more characters"}) 
+                    return render(request,"report/find.html",{"message":"Please Search L name by 3 or more characters","user":request.session['user']}) 
             elif lname and len(lname)>2:
                 if not fname:
                     date=f"Find L Name '{lname}'"
                     encounter_find = Tbllab.objects.filter(lname__icontains=lname).order_by('-dor')
                 else:
-                    return render(request,"report/find.html",{"message":"Please Search F name by 3 or more characters"})  
+                    return render(request,"report/find.html",{"message":"Please Search F name by 3 or more characters", "user":request.session['user']})  
             elif smpno and int(smpno)>0 and int(smpno)<10000:
                 date=f"Find Sample No '{smpno}'"
                 encounter_find = Tbllab.objects.filter(sampno=smpno)
@@ -296,7 +296,7 @@ def find(request):
                 date=f"Find Mobile no '{mobno}'"
                 encounter_find = Tbllab.objects.filter(phone=mobno)
             else:
-                return render(request,"report/find.html",{"message":"Invalid Input for Search"})
+                return render(request,"report/find.html",{"message":"Invalid Input for Search", "user":request.session['user']})
 
             return render(request, 'report/index.html', {"encounter" :encounter_find, "date" : date, "user":request.session['user']})
             

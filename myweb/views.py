@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+
+        
+def contactus(request):
+    return render(request, 'myweb/contactus.html')
+
 def index(request):                
     return render(request, 'myweb/index.html')
  
@@ -35,6 +40,3 @@ def coreteam(request):
         
 def inquiry(request):
     return render(request, 'myweb/inquiry.html')
-        
-def contactus(request):
-    return render(request, 'myweb/contactus.html')

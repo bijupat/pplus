@@ -1,67 +1,424 @@
 {% load static %}
 <!DOCTYPE html>
 
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="msvalidate.01" content="9750059107946A38C6EE1C68F3F00008">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Medilab Diagnostics</title>
+  <link rel="Shortcut Icon" href="{% static 'myweb/symbol.jpg' %}">
+  <meta name="description" content="Medilab Diagnostics offer various services such as Blood Tests, Urine &amp; Stool Test, Lipid Profile, Pre-Operative Profile, Antenatal Profile and Biopsy &amp; Pap Smear">
+  <meta name="keywords" content="">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Attach Css Here -->
+
+  <link rel="stylesheet" type="text/css" href="{% static 'myweb/main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'myweb/responsive.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'myweb/slick.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'myweb/slick-theme.css' %}">
+  <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5LJDMFW"></script><script type="text/javascript" async="" src="https://www.gstatic.com/recaptcha/releases/_7Co1fh8iT2hcjvquYJ_3zSP/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-yF7E1ktGfbA26NWZZupkIgKSvH2WmFG90KyY3BzFp06blZkjALcng9gGnuW5hlae"></script><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 
 
-<html lang="en">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5LJDMFW');</script>
+<!-- End Google Tag Manager -->
 
 
-<head>
-<!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!--import static files-->    
+<script type="application/ld+json">{"@context":"http://www.schema.org","@type":"Hospital","name":"medilab Pathology Laboratory ","url":"https://www.medilabpathologylab.co.in","logo":"{% static 'myweb/' %}/images/logo.png","telephone":"+91 98799 62010","image":"{% static 'myweb/' %}/images/aboutus-service.jpg","description":"I myself Dr. Pravin R Shah did my Postgraduation in Pathology from Shri M.P. Shah Medical College in 1994. Therafter I am working as consultant pathologist with experience of laboratory of 24 years.","priceRange":"INR","address":{"@type":"PostalAddress","streetAddress":"EL-20, Maruti Towers, Nr Shivranjani Cross-road, Satelite Road","addressLocality":"Ahmedabad","addressRegion":"Gujarat","postalCode":"380015","addressCountry":"India"},"geo":{"@type":"GeoCoordinates","latitude":"23.023913","longitude":"72.530802"},"openingHours":"Mo, Tu, We, Th, Fr, Sa 07:00-21:30 Su 07:30-18:00","contactPoint":{"@type":"ContactPoint","telephone":"+91 98799 62010","contactType":"Customer Service"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5","ratingCount":"5"}}</script></head>
+<body class="loaded">
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LJDMFW"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
-  <link href="{% static 'myweb\menustyles.css' %}" rel="stylesheet">
-  <link href="{% static 'myweb\bodystyle.css' %}" rel="stylesheet">
+  <a id="toggle" href="#"><i class="fa fa-bars"></i></a>
+  <div id="overlay"></div>
+  <a href="tel:+91 9376177135" class="mb_phone"> <i class="fa fa-phone"></i> </a>
+  <!-- start Header -->
+  <header>
 
-  {% block head %}{% endblock %}
-  <title>{% block title %}{% endblock %}</title>
-</head>
 
-<body>
-  <div>
-    <div class="topfloat">
-      <div class="container">
-        <div class="image">
-          <img src="{% static 'myweb\HOSPIMAX.jpg' %}" id="imagehead" alt="Hospimax Consultancy"  title=" Hospimax Consultancy">
-        </div>
-        <div>
-          <ul class="topnav">
-            <li><a class="active" href={% url 'myweb:index'  %}>Home</a></li>
-            <li class="dropdown">
-              <a href="javascript:void(0)" class="dropbtn">Services</a>
-              <div class="dropdown-content">
-                <a href={% url 'myweb:user_defined' %}>Custom healthcare software for healthcare units</a>
-                <a href={% url 'myweb:appdev' %}>Application Development & Support</a>
-                <a href={% url 'myweb:intauto' %}>Intelligent Automation in Healthcare</a>
-                <a href={% url 'myweb:workimp' %}>Custom Diagnostics center management system </a>
-                <a href={% url 'myweb:telehealth' %}>Tele-health & Virtual Health system development</a>
-                <a href={% url 'myweb:website' %}>Website and web application development</a>
-                <a href={% url 'myweb:qa' %}>Quality assurance for new or existing healthcare system</a>
+
+    <div class="wrapper">
+        <a href="http://www.medilabonline.co.in/" class="logo-w"><img src="{% static 'myweb/symbol.jpg' %}" width="100 %" height="100 %" alt="medilab-logo" class="logo"></a>
+        <a href="http://www.medilabonline.co.in/" class="logo-w  "><img src="{% static 'myweb/board.jpg' %}" width="auto" height="100 %" alt="medilab-logo" class="logo"></a>
+
+           <nav class="mainMenu">   
+    <!--   <ul class="preheader-left">
+        <li><a href="index.html"><i class="fa fa-home"></i></a></li>  
+      </ul> -->
+      <label for="toggleMenu" class="menuTitle" onclick="">MENU</label>
+      <input type="checkbox" id="toggleMenu">
+      <ul class="preheader-right">
+          <li>
+              <div class="header-detail">
+                  <div class="header-l"><img src="{% static 'myweb/clock-icon.png' %}"></div>
+                  <div class="header-r">
+                      <p>
+                         Mon to Sat: 7 AM to 9:30 PM<br>
+                         Sun: 7:30 AM to 6:00 PM<br>
+                         Open on Public Holidays
+                      </p>
+                  </div>
               </div>
-            </li>
-            <li class="dropdown">
-              <a href="javascript:void(0)" class="dropbtn">Our Team</a>
-              <div class="dropdown-content">
-                <a href={% url 'myweb:promotor' %}>Promoter</a>
-                <a href={% url 'myweb:coreteam' %}>Core Team</a>
+           </li>
+           <li>
+              <div class="header-detail">
+                  <div class="header-l"><img src="{% static 'myweb/navigation-icon.png' %}" alt="navigation-icon"></div>
+                  <div class="header-r">
+                      <p>
+                        FF-2 First Floor,<br>
+                        Akash 3 Comm Complex,<br> 
+                        Opp Jayamangal BRTS,<br>
+                        132 Ft Ring Road, Naranpura <br>
+                        Ahmedabad,Gujarat,<br>
+                        India - 380013.
+                      </p>
+                  </div>
               </div>
+           </li>
+           
+      </ul>
+     </nav> 
+
+        <ul class="header-right">
+           <li>
+              <div class="header-detail">
+                  <div class="header-l"><img src="{% static 'myweb/clock-icon.png' %}" alt="clock-icon"></div>
+                  <div class="header-r">
+                      <p>
+                         Mon to Sat: 7 AM to 9:30 PM<br>
+                         Sun: 7:30 AM to 6:00 PM<br>
+                         Open on Public Holidays
+                      </p>
+                  </div>
+              </div>
+           </li>
+           <li>
+              <div class="header-detail">
+                  <div class="header-l"><img src="{% static 'myweb/navigation-icon.png' %}" alt="navigation-icon"></div>
+                  <div class="header-r">
+                      <p>
+                        FF-2 First Floor,<br>
+                        Akash 3 Comm Complex,<br> 
+                        Opp Jayamangal BRTS,<br>
+                        132 Ft Ring Road, Naranpura <br>
+                        Ahmedabad,Gujarat,<br>
+                        India - 380013.
+                      </p>
+                  </div>
+              </div>
+           </li>
+          
+        </ul>
+
+    </div>    
+  </header>
+  <!-- End Header -->
+
+  <!-- Start menu  here -->
+  <nav id="menu" class="sticky-nav">
+        <div class="wrapper"> 
+          <ul class="menu-top">
+              <li class="activepg"><a href="{% url 'myweb:index' %}">Home</a></li>
+              <li><a href="{% url 'myweb:index' %}">About Us</a></li>
+              <li><a href="#">Services<i class="fa fa-angle-down sks_custom"></i></a>
+                <ul class="sub-menu">
+                  <li><a href="{% url 'myweb:index' %}"><span>Blood Tests</span></a></li>
+                  <li><a href="{% url 'myweb:index' %}"><span>Urine &amp; Stool Test</span></a></li>
+                  <li><a href="{% url 'myweb:index' %}"><span>Lipid Profile</span></a></li>
+                  <li><a href="{% url 'myweb:index' %}"><span>Pre-operative Profile</span></a></li>
+                  <li><a href="{% url 'myweb:index' %}"><span>Antenatal Profile</span></a></li>
+                  <li><a href="{% url 'myweb:index' %}"><span>Biopsy &amp; Pap Smear</span></a></li>
+                </ul>
             </li>
-            <li class="right"><a href={% url 'report:index' %}>Employee</a></li>
-            <li class="right"><a href={% url 'myweb:inquiry' %}>Send Inquiry</a></li>
-            <li class="right"><a href={% url 'myweb:contactus' %}>Contact Us</a></li>
+              <li><a href="{% url 'myweb:index' %}">Packages</a></li>
+              <li><a href="{% url 'myweb:index' %}">Equipment</a></li>
+              <li><a href={% url 'myweb:index' %}>Testimonials</a></li>
+              <li><a href={% url 'myweb:index' %}>Contact Us</a></li>
           </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+          <ul class="n-right">
+            <li class="btn-appoinment"><a href={% url 'myweb:index' %}><img src="{% static 'myweb/calendar-icon.png' %}" alt="calendar-icon"><span>Make An Appointment </span></a></li>
+            <li class="btn-callapn"><a href="tel:079 40392718"><i class="fa fa-phone"></i><span>079 40392718</span></a></li>  
+          </ul>
+      </div> 
+  </nav>
+  <!-- End menu here --><link rel="canonical" href="#">
+<div id="loader-wrapper">
+  <div id="loader"></div>
+
+  <div class="loader-section section-left"></div>
+  <div class="loader-section section-right"></div>
+
+</div>
+
 
 
 
 {% block body %}
 {% endblock %}
 
+
+
+
+<!-- start footer -->
+<footer class="footer">
+  <div class="wrapper">
+      <div class="footer-left">
+          <div class="footer-1">
+              <div class="f-tit">Quick Links</div>
+              <ul>
+                  <li class="active"><a href={% url 'myweb:index' %}><span>Home</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>About Us</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Services</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Packages</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Equipment</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Testimonials</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Areas We Serve</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Contact Us</span></a></li>
+              </ul>
+              <div class="clearfix"></div>
+          </div>
+
+          <div class="footer-2 footer-1">
+              <div class="f-tit">Our services</div>
+              <ul>
+                  <li><a href={% url 'myweb:index' %}><span>Blood  Tests!!!!!</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Urine &amp; Stool Test</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Lipid Profile</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Pre-operative Profile</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Antenatal Profile</span></a></li>
+                  <li><a href={% url 'myweb:index' %}><span>Biopsy &amp; Pap Smear</span></a></li>
+
+              </ul>
+              <div class="clearfix"></div>
+          </div>
+
+          <div class="footer-1 footer-3">
+              <div class="f-tit">Medilab<br>Diagnostics</div>
+
+              <ul class="address-icon header-right">
+                  <li><i class="fa fa-location-arrow"></i>
+                      <span>FF-2 First Floor, Akash 3 Comm Complex, Opp Jayamangal BRTS, 132 Ft Ring Road, Naranpura, Ahmedabad,Gujarat, India - 380013.</span>
+                  </li>
+                  <li>
+                      <i class="fa fa-phone"></i>
+                      <span><a href="tel:079 40392718">079 40392718</a></span>
+                  </li>
+                  
+              </ul>
+
+          </div>
+
+      </div>
+
+      <div class="footer-right">
+          <img src="{% static 'myweb/symbol.jpg' %}" class="footer-img" alt="footer-machine">
+          <div class="footer-red">
+              <img src="{% static 'myweb/footer-clock.png' %}" alt="footer-clock">
+              <h5>Operating Hours:</h5>
+
+              <ul>
+                  <li><p><span>Monday to Saturday</span>
+                      7 AM to 9:30 PM</p>
+                  </li>
+                  <li><p><span>Sunday</span>
+                      7 AM to 6:00 PM</p>
+                  </li>
+              </ul>
+              <span class="btn-holiday">Open on Public Holidays</span>
+          </div>
+      </div>
+                  <div class="footer-copy">
+              <p>© Copyright 2021 Medilab Dignostics. All Rights Reserved.</p>
+          </div>
+  </div>
+</footer>
+<!-- End footer -->
+<!-- Attach jquery here -->
+<a href="javascript:void(0);" class="cd-top"><i class="fa fa-angle-up"></i></a>
+
+<script type="text/javascript" src="{% static 'myweb/menu.js' %}"></script>
+<script type="text/javascript" src="{% static 'myweb/custom.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'myweb/slick.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'myweb/masonry.js' %}"></script>
+
+  <script type="text/javascript">
+    var SERVER_NAME = '{% static 'myweb/' %}/';
+    jQuery(document).ready(function($){
+        // browser window scroll (in pixels) after which the "back to top" link is shown
+        var offset = 300,
+        //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+        offset_opacity = 1200,
+        //duration of the top scrolling animation (in ms)
+        scroll_top_duration = 700,
+        //grab the "back to top" link
+        $back_to_top = $('.cd-top');
+        //hide or show the "back to top" link
+        $(window).scroll(function(){
+            ( $(this).scrollTop() > offset ) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+            if( $(this).scrollTop() > offset_opacity ) {
+                $back_to_top.addClass('cd-fade-out');
+                //alert('ss11');
+            }
+        });
+        //smooth scroll to top
+        $back_to_top.on('click', function(event){
+            event.preventDefault();
+            $('body,html').animate({
+                scrollTop: 0 ,
+                }, scroll_top_duration
+            );
+        });
+    });
+</script>
+<script type="text/javascript">
+    var SCRIPT_NAME = 'index.php';
+
+    $(document).ready(function() {
+
+        $("#con_send_enquiry").click( function() {
+
+            var no_error = true;
+
+
+            if($('#fullname').val() == '')
+            {
+                $('#fullname').css('border','1px solid #40317c');
+                no_error = false;
+
+            }
+            else
+            {
+                $('#fullname').css('border','0px solid #40317c');
+            }
+
+            if($('#emailaddress').val() == '')
+            {
+                $('#emailaddress').css('border','1px solid #40317c');
+                no_error = false;
+
+            }
+            else
+            {
+                $('#emailaddress').css('border','0px solid #40317c');
+            }
+
+            if(validateEmail($('#emailaddress').val())){
+                $('#emailaddress').css('border','0px solid #40317c');
+            } else {
+                $('#emailaddress').css('border','1px solid #40317c');
+                no_error = false;
+            }
+
+
+            if($('#phonenumber').val() == '')
+            {
+                $('#phonenumber').css('border','1px solid #40317c');
+                no_error = false;
+
+            }
+            else
+            {
+                $('#phonenumber').css('border','0px solid #40317c');
+            }
+
+            if($('#suburbname').val() == '')
+            {
+                $('#suburbname').css('border','1px solid #40317c');
+                no_error = false;
+
+            }
+            else
+            {
+                $('#suburbname').css('border','0px solid #40317c');
+            }
+
+            if($('#message').val() == '')
+            {
+                $('#message').css('border','1px solid #40317c');
+                no_error = false;
+
+            }
+            else
+            {
+                $('#message').css('border','0px solid #40317c');
+            }
+
+            if (grecaptcha.getResponse() == "") {
+                if(no_error) {
+                    alert("You can't proceed! Please Select Captcha.");
+                }
+                no_error = false;
+            }
+
+            if(no_error) {
+                $("#act").val(1);
+
+                $("#enquiryform").submit();
+            } else {
+                return false;
+            }
+        });
+        $("#phonenumber").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+
+        $(".name_field").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 32]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if (((e.keyCode < 65 || e.keyCode > 90))) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    function validateEmail(email) {
+        var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        var valid = emailReg.test(email);
+
+        if(!valid) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
+
+
+<script type="text/javascript" id="">(function(){var b={"@context":"http://www.schema.org","@type":"Hospital",name:"medilab Pathology Laboratory ",url:"{% static 'myweb/' %}",logo:"{% static 'myweb/' %}/images/logo.png",telephone:"+91 98799 62010",image:"{% static 'myweb/' %}/images/aboutus-service.jpg",description:"I myself Dr. Pravin R Shah did my Postgraduation in Pathology from Shri M.P. Shah Medical College in 1994. Therafter I am working as consultant pathologist with experience of laboratory of 24 years.",
+priceRange:"INR",address:{"@type":"PostalAddress",streetAddress:"EL-20, Maruti Towers, Nr Shivranjani Cross-road, Satelite Road",addressLocality:"Ahmedabad",addressRegion:"Gujarat",postalCode:"380015",addressCountry:"India"},geo:{"@type":"GeoCoordinates",latitude:"23.023913",longitude:"72.530802"},openingHours:"Mo, Tu, We, Th, Fr, Sa 07:00-21:30 Su 07:30-18:00",contactPoint:{"@type":"ContactPoint",telephone:"+91 98799 62010",contactType:"Customer Service"},aggregateRating:{"@type":"AggregateRating",
+ratingValue:"5",ratingCount:"5"}},a=document.createElement("script");a.type="application/ld+json";a.innerHTML=JSON.stringify(b);document.head.appendChild(a)})();</script><div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;"></div><div class="g-recaptcha-bubble-arrow" style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;"></div><div class="g-recaptcha-bubble-arrow" style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;"></div><div style="z-index: 2000000000; position: relative;"><iframe title="recaptcha challenge expires in two minutes" src="https://www.google.com/recaptcha/api2/bframe?hl=en&amp;v=_7Co1fh8iT2hcjvquYJ_3zSP&amp;k=6LdHVEQUAAAAAPGUBMT063GRTZYaCtjQTUTgM1Mf" name="c-3ysxgfsd8kk2" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 100%; height: 100%;"></iframe></div></div>
 </body>
 
 
