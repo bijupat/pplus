@@ -1,4 +1,6 @@
-db_password.txt
+mssqldb_password.txt
+pgdb_password.txt
+
 pplus/settings.py
 secret_key.txt
 /static/
