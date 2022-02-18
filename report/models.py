@@ -7,7 +7,32 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+class ClientLab(models.Model):
+    name = models.CharField(max_length=100)
+    schema_name = models.CharField(max_length=20)
+    created_on = models.DateField(auto_now_add=True)
+    paid_until =  models.DateField()
+    on_trial = models.BooleanField(default=True)
+    host = models.CharField(max_length=50, blank=True, null=True)
 
+    # default true, schema will be automatically created and synced when it is saved
+    #auto_create_schema = True
+
+    class Meta:
+        managed = False
+        db_table = 'ClientLab'
+
+
+class Client(models.Model):
+    name = models.CharField(max_length=20, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    password = models.CharField(max_length=128)
+    ClientLab = models.ForeignKey(ClientLab, models.PROTECT)
+
+    class Meta:
+        managed = False
+        db_table = 'Userlab'
+    
 class Bedmaster(models.Model):
     bedid = models.BigIntegerField(db_column='BedId')  # Field name made lowercase.
     bedcode = models.CharField(db_column='BedCode', max_length=100, blank=True, null=True)  # Field name made lowercase.
