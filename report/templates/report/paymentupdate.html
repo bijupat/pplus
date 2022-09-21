@@ -1,0 +1,48 @@
+{% extends "report/layout.html" %}
+{% load static %}
+{% block title %}Payment Compare{% endblock title %}
+{% block head %} {% endblock head %}
+{% block body %}
+
+{% if message %}
+    <div>{{ message }}</div>
+{% endif %}
+<div class="row">
+    {% for receipt in receipts %}
+            {% csrf_token %}
+            <div class="col-sm-6 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{receipt.labkey.dor|date:"d/m/Y"}} :: {{receipt.labkey.sampno}} </h5>
+                        <p class="card-text">{{receipt.labkey.fname}} {{receipt.labkey.mname}} {{receipt.labkey.lname}} </p>
+                        <p class="card-text">Rs : {{receipt.amount}} received on {{receipt.paidon|date:"d/m/Y"}}</p>
+                        <p class="card-text "> By :
+                            {% if receipt.oprkey == 6 %}
+                                Ritesh
+                            {% elif receipt.oprkey == 26 %}
+                                Dinesh
+                            {% elif receipt.oprkey == 10 %}
+                                Jigar
+                            {% elif receipt.oprkey == 12 %}
+                                Kamlesh
+                            {% elif receipt.oprkey == 9 %}
+                                Asma
+                            {% else %}
+                                {{receipt.oprkey}}
+                            {% endif %}
+                        </p>
+                        <form method="post" action="{% url 'report:paymentupdate' receipt.paykey %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="name" value="value" /> 
+                            <a class="btn btn-primary btn-sm text-center" onclick="this.parentNode.submit();">Update</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    {% empty %}
+    <div>
+        No Payment Due for User !!
+    </div>
+    {% endfor %}
+</div>
+{% endblock body %}

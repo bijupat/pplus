@@ -13,6 +13,28 @@ from datetime import timedelta
 #declaring users list by oprkey who can verify reports
 VERIFY_ALLOWED_USERS = [5]
 
+def paymentupdate(request, oprkey):
+    USERDB = request.session['dbname']
+# checking if user key is in request.session dict (check if user loged in)
+    if 'user' in request.session:
+        if request.method == 'GET':
+            if oprkey == 0:
+                receipts = Tblpay.objects.using(USERDB).filter(cash = True).order_by('-paidon').exclude(oprkey=5)[0:50]
+            else:         
+                receipts = Tblpay.objects.using(USERDB).filter(cash = True).order_by('-paidon').filter(oprkey=oprkey).filter(paidon__year__gte = 2022)[0:50]
+
+            return render(request, 'report/paymentupdate.html', {"receipts" : receipts})
+
+        if request.method == 'POST':
+            paymentobject = Tblpay.objects.using(USERDB).get(pk=oprkey)
+            print(paymentobject)
+                   
+            return HttpResponseRedirect(reverse("report:encounter",  args=[oprkey]))
+            
+    else:
+        return render(request, "report/login.html", {
+                "message": "Please Login."
+            })
 
 def index(request):
     # checking if user key is in request.session dict (check if user loged in)

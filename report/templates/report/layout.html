@@ -48,7 +48,20 @@
                         <li class="nav-item"><a class="nav-link" href={% url 'report:index' %}>Home</a></li>
                         <li class="nav-item"><a class="nav-link" href={% url 'report:find' %}>Find</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Compare</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Payment Update</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Payments
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href={% url 'report:paymentupdate' 9 %}>Asma</a>
+                              <a class="dropdown-item" href={% url 'report:paymentupdate' 26 %}>Dinesh</a>
+                              <a class="dropdown-item" href={% url 'report:paymentupdate' 10 %}>Jigar</a>
+                              <a class="dropdown-item" href={% url 'report:paymentupdate' 12 %}>Kamlesh</a>
+                              <a class="dropdown-item" href={% url 'report:paymentupdate' 6 %}>Ritesh</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href={% url 'report:paymentupdate' 0 %}>All</a>
+                            </div>
+                        </li> 
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="#">Hey {{request.session.user}} requesting from {{request.get_host}}</a></li>

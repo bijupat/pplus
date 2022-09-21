@@ -1236,7 +1236,6 @@ class Tblpat(models.Model):
     mobile4sms = models.CharField(db_column='Mobile4SMS', max_length=12)  # Field name made lowercase.
     validupto = models.DateTimeField(db_column='ValidUpto', blank=True, null=True)  # Field name made lowercase.
     iswebactive = models.BooleanField(db_column='IsWebActive')  # Field name made lowercase.
-
     class Meta:
         managed = False
         db_table = 'tblPat'
@@ -1246,7 +1245,6 @@ class Tblpatimages(models.Model):
     imgkey = models.AutoField(db_column='ImgKey', primary_key=True)  # Field name made lowercase.
     labkey = models.ForeignKey(Tbllab, models.DO_NOTHING, db_column='LabKey')  # Field name made lowercase.
     imagefile = models.CharField(db_column='ImageFile', max_length=500)  # Field name made lowercase.
-
     class Meta:
         managed = False
         db_table = 'tblPatImages'
@@ -1265,7 +1263,6 @@ class Tblpay(models.Model):
     printed = models.SmallIntegerField(db_column='Printed')  # Field name made lowercase.
     oprkey = models.IntegerField(db_column='OPRKey')  # Field name made lowercase.
     paymode = models.SmallIntegerField(db_column='PayMode')  # Field name made lowercase.
-
     class Meta:
         managed = False
         db_table = 'tblPay'
