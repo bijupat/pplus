@@ -23,13 +23,20 @@ def paymentupdate(request, oprkey):
             else:         
                 receipts = Tblpay.objects.using(USERDB).filter(cash = True).order_by('-paidon').filter(oprkey=oprkey).filter(paidon__year__gte = 2022)[0:50]
 
-            return render(request, 'report/paymentupdate.html', {"receipts" : receipts})
+            return render(request, 'report/paymentupdate.html', {"receipts" : receipts, "oprkey": oprkey})
 
         if request.method == 'POST':
+            
+            # receipt.paykey is passed from template as oprkey
             paymentobject = Tblpay.objects.using(USERDB).get(pk=oprkey)
-            print(paymentobject)
+            #first save paymentobject.userkey in userkey before it gets changed
+            userkey = paymentobject.oprkey
+            # now change payment object user (oprkey) and save it
+            paymentobject.oprkey = request.session['oprkey']
+            paymentobject.save()
+
                    
-            return HttpResponseRedirect(reverse("report:encounter",  args=[oprkey]))
+            return HttpResponseRedirect(reverse("report:paymentupdate",  args=[userkey]))
             
     else:
         return render(request, "report/login.html", {
