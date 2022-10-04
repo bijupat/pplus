@@ -19,24 +19,30 @@ def paymentupdate(request, oprkey):
     if 'user' in request.session:
         if request.method == 'GET':
             if oprkey == 0:
-                receipts = Tblpay.objects.using(USERDB).filter(cash = True).order_by('-paidon').exclude(oprkey=5)[0:50]
+                receipts = Tblpay.objects.using(USERDB).filter(cash = True).order_by('-paidon').exclude(oprkey=5).filter(paidon__year__gte = 2022)[0:50]
+            elif oprkey == 100000:
+                receipts = Tblpay.objects.using(USERDB).filter(cash = False).order_by('-paidon').exclude(oprkey=5).filter(paidon__year__gte = 2022)[0:50]            
             else:         
                 receipts = Tblpay.objects.using(USERDB).filter(cash = True).order_by('-paidon').filter(oprkey=oprkey).filter(paidon__year__gte = 2022)[0:50]
 
             return render(request, 'report/paymentupdate.html', {"receipts" : receipts, "oprkey": oprkey})
 
         if request.method == 'POST':
-            
             # receipt.paykey is passed from template as oprkey
-            paymentobject = Tblpay.objects.using(USERDB).get(pk=oprkey)
+            paymentobject = Tblpay.objects.using(USERDB).get(pk=request.POST["receipt_paykey"])
             #first save paymentobject.userkey in userkey before it gets changed
-            userkey = paymentobject.oprkey
             # now change payment object user (oprkey) and save it
             paymentobject.oprkey = request.session['oprkey']
+            # change payment paidon if passed in form
+            date = request.POST["date"]
+            if date : 
+                paymentobject.paidon = date
+                print(True)
+            else:
+                print(False)
             paymentobject.save()
 
-                   
-            return HttpResponseRedirect(reverse("report:paymentupdate",  args=[userkey]))
+            return HttpResponseRedirect(reverse("report:paymentupdate",  args=[oprkey]))
             
     else:
         return render(request, "report/login.html", {

@@ -13,9 +13,9 @@
             <div class="col-sm-6 col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{receipt.labkey.dor|date:"d/m/Y"}} :: {{receipt.labkey.sampno}} </h5>
+                        <h5 class="card-title">{{receipt.labkey.dor|date:"d/m/Y"}} :Smp No: {{receipt.labkey.sampno}} </h5>
                         <p class="card-text">{{receipt.labkey.fname}} {{receipt.labkey.mname}} {{receipt.labkey.lname}} </p>
-                        <p class="card-text">Rs : {{receipt.amount}} received on {{receipt.paidon|date:"d/m/Y"}}</p>
+                        <p class="card-text">Rs : {{receipt.amount}} received on {{receipt.paidon|date:"d/m/Y"}} </p>
                         <p class="card-text "> By :
                             {% if receipt.oprkey == 6 %}
                                 Ritesh
@@ -30,10 +30,12 @@
                             {% else %}
                                 {{receipt.oprkey}}
                             {% endif %}
+                            @ Rcpt No : {{receipt.recpno}}
                         </p>
-                        <form method="post" action="{% url 'report:paymentupdate' receipt.paykey %}">
+                        <form method="post" action="{% url 'report:paymentupdate' oprkey %}">
                             {% csrf_token %}
-                            <input type="hidden" name="name" value="value" /> 
+                            <input class="form-control" type="date" id="date_payment" name="date" aria-describedby="addon-wrapping">
+                            <input type = "hidden" value = "{{receipt.paykey}}"  id="receipt_paykey" name="receipt_paykey" aria-describedby="addon-wrapping">
                             <a class="btn btn-primary btn-sm text-center" onclick="this.parentNode.submit();">Update</a>
                         </form>
                     </div>
