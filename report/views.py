@@ -8,10 +8,18 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from datetime import timedelta
 
-#time delta for 5 hours and 30 min
+#time delta for 5 hours and 30 min  
 #TIME_DELTA530 = timedelta(days= 0, hours = 5, minutes = 30)
 #declaring users list by oprkey who can verify reports
 VERIFY_ALLOWED_USERS = [5]
+
+def discountlist(request):
+    USERDB = request.session['dbname']
+# checking if user key is in request.session dict (check if user loged in)
+    if 'user' in request.session:
+        if request.method == 'GET':
+            encs = Tbllab.objects.using(USERDB).order_by('-dor').filter(disc__gt = 0)[0:50]
+        return render(request, 'report/index.html' , {"encounter" :encs, "index":False})
 
 def paymentupdate(request, oprkey):
     USERDB = request.session['dbname']

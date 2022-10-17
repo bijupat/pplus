@@ -16,9 +16,6 @@ urlpatterns = [
     path('reportview/<int:labkey>/', views.reportview, name='reportview'),
     path('find/', views.find, name='find'),
     path('paymentupdate/<int:oprkey>/', views.paymentupdate, name='paymentupdate'),
-
-
-    
-
+    path('dicountlist/', views.discountlist, name='discountlist'),
 ]
 
