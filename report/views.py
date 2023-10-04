@@ -65,6 +65,7 @@ def index(request):
         if request.method == 'GET':
             encounter_today = Tbllab.objects.using(USERDB).filter(dor__date=datetime.today().date())
 
+            #print(encounter_today.values().first())
             return render(request, 'report/index.html' , {"encounter" :encounter_today, "index":True})
     
 

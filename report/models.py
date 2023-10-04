@@ -1140,7 +1140,7 @@ class Tblinv(models.Model):
         managed = False
         db_table = 'tblInv'
 
-
+    
 class Tbllab(models.Model):
     labkey = models.AutoField(db_column='LabKey', primary_key=True)  # Field name made lowercase.
     dor = models.DateTimeField(db_column='DOR')  # Field name made lowercase.
