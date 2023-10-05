@@ -18,7 +18,7 @@
 </form>
 <br>
 {% else %}
-<div align="center">
+<div align ="center">
     <a href="{% url 'report:find'  %}" style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%">Find Other</a>
 </div>
 {% endif %}
@@ -26,28 +26,29 @@
 <br>
 
 {% for e in encounter %}
-    <div class="card">
-        <div class="card-header">
+    <div class="card" >
+        <div class="card-header" >
+            {% if e.reporeadysmssent %}
+            <div class="row row-cols-auto" style="background-color:#b2e1a6;">
+            {% else %}
             <div class="row row-cols-auto">
+            {% endif %}
                 <div class="col">{% if not index %}{{e.dor|date:"d/m/Y"}} : : {% endif %}{{e.sampno}}</div>
                 <div class="col">{{e.prefix}}-{{e.labno}}</div>
                 <div class="col">Mo:    {{e.mobile4sms}}</div>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body" >
             <a href= "{% url 'report:encounter' e.labkey %}" aria-current="true">
                 <h5 class="card-title">{{e.fname}} {{e.mname}} {{e.lname}}</h5>
             </a>
-            <div class="row row-cols-auto">
+            <div class="row row-cols-auto" >
                 <div class="col">{{e.refdr.drname}}</div>
                 <div class="col">{{e.acckey.accname}}</div>
             </div>
             <div class="row row-cols-auto">
                 <div class="col">Rep Ready SMS at : {{e.reporeadysmssent}}</div>
                 <div class="col">Result SMS at : {{e.testresultsmssent}}</div>
-                <a class="col" href="https://wa.me/+91{{e.mobile4sms}}/?text=hi {{e.fname}} {{e.mname}} {{e.lname}}, Your Reports are ready !! " target="_blank">Whats app</a>
-
-
             </div>
         </div>
     </div>
