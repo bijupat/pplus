@@ -50,9 +50,11 @@
   <a href="{% url 'report:encounter' e.labkey %}" style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%">Back</a>  
 </div>
 <br>
+{% if e.mobile4sms %}
 <div align="center">
-  <a class="navbar-brand" href="https://wa.me/+91{{e.mobile4sms}}/?text=hi {{e.fname}} {{e.mname}} {{e.lname}}, Your Reports are ready !!{% for t in tests %} {% if t.test4sms and t.result %}%0a{{t.test4sms}}: {{t.result}}{% endif %} {% empty %} No Verified Test ! {% endfor %}" target="_blank">
+  <a class="navbar-brand" href="https://wa.me/+91{{e.mobile4sms}}/?text=Hi {{e.fname}} {{e.mname}} {{e.lname}}, Your Reports are ready !!%0a{{e.dor|date:'d/m/Y'}}{% for t in tests %} {% if t.test4sms and t.result %}%0a{{t.test4sms}}: {{t.result}}{% endif %} {% empty %} No Verified Test ! {% endfor %}" target="_blank">
     <img src="{% static 'report\whatsapp.png' %}" alt="" class = "rounded-circle" style="width:60px; height:60px;" class="d-inline-block align-top" alt="">
   </a>
 </div>
+{% endif %}
 {% endblock %}
