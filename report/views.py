@@ -156,7 +156,7 @@ def reportview(request, labkey):
                     repokey_verified_list.append(report.repokey)
             tests_verified = Tbltests.objects.using(USERDB).filter(repokey__in=repokey_verified_list).order_by('repokey', 'eorder')
             #print(tests_verified.values())
-
+            #print(e.refdr.mobile)
             return render(request, 'report/alltests.html' , {"tests" : tests_verified, "e" : e })
 
 
