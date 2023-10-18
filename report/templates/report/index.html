@@ -27,15 +27,15 @@
 
 {% for e in encounter %}
     <div class="card" >
-        <div class="card-header" >
-            {% if e.reporeadysmssent %}
-            <div class="row row-cols-auto" style="background-color:#b2e1a6;">
-            {% else %}
-            <div class="row row-cols-auto">
-            {% endif %}
+        {% if e.reporeadysmssent %}
+        <div class="card-header" style="background-color:#c9e5c2;" >
+        {% else %}
+        <div class="card-header">
+        {% endif %}
+            <div class="row row-cols-auto" >
                 <div class="col">{% if not index %}{{e.dor|date:"d/m/Y"}} : : {% endif %}{{e.sampno}}</div>
                 <div class="col">{{e.prefix}}-{{e.labno}}</div>
-                <div class="col">Mo:    {{e.mobile4sms}}</div>
+                <div class="col">Mo:{{e.mobile4sms}}</div>
             </div>
         </div>
         <div class="card-body" >

@@ -58,7 +58,7 @@
   </a>
   {% endif %}
   {% if  e.refdr.mobile %}
-  Dr<a class="navbar-brand" href="https://wa.me/+91{{e.refdr.mobile}}/?text=Hi {{e.fname}} {{e.mname}} {{e.lname}}, Your Reports are ready !!%0a{{e.dor|date:'d/m/Y'}}{% for t in tests %} {% if t.test4sms and t.result %}%0a{{t.test4sms}}: {{t.result}}{% endif %} {% empty %} No Verified Test ! {% endfor %}" target="_blank">
+  Dr<a class="navbar-brand" href="https://wa.me/+91{{e.refdr.mobile}}/?text=Hi Dr, {{e.fname}} {{e.mname}} {{e.lname}}'s Reports are ready !!%0a{{e.dor|date:'d/m/Y'}}{% for t in tests %} {% if t.test4sms and t.result %}%0a{{t.test4sms}}: {{t.result}}{% endif %} {% empty %} No Verified Test ! {% endfor %}" target="_blank">
     <img src="{% static 'report\whatsapp.png' %}" alt="" class = "rounded-circle" style="width:60px; height:60px;" class="d-inline-block align-top" alt="">
   </a>
   {% endif %}
