@@ -1,48 +1,77 @@
 {% extends "report/layout.html" %}
 {% load static %}
-{% block title %}Index{% endblock %}
+{% block title %}
+    Find Patient
+{% endblock title %}
 {% block head %}
-{% endblock %}
+{% endblock head %}
 {% block body %}
-
-{% if message %}
-<span style="background-color:red">{{message}}</span>
-{% endif %}
-<br>
-<br>
-<div>
-<form action="{% url 'report:find' %}" method="post">
-    {% csrf_token %}
-    <div class="input-group flex-nowrap">
-        <label class="input-group-text" id="addon-wrapping" for="find_name"></label>
-        <input class="form-control" type="text" id="find_fname" name="find_fname" aria-describedby="addon-wrapping" placeholder="First Name : Full or part">
-        <label class="input-group-text" id="addon-wrapping" for="find_name"></label>
-        <input class="form-control" type="text"  id="find_lname" name="find_lname" aria-describedby="addon-wrapping" placeholder="Last Name : Full or part">
-        <input  disabled id = "find_name_sub" class="btn btn-primary btn-sm" type="submit">
-    </div>
-</form>
-<br>
-<form action="{% url 'report:find' %}" method="post">   
-    {% csrf_token %}
-    <div class="input-group flex-nowrap">
-        <label class="input-group-text" id="addon-wrapping" for="find_smpno"></label>
-        <input class="form-control" type="number" min="1" max="9999" id="find_smpno" name="find_smpno" aria-describedby="addon-wrapping" placeholder="Enter exact Sample Number">
-        <input  disabled id = "find_smpno_sub" class="btn btn-primary btn-sm" type="submit">
-    </div>
-</form>
-<br>
-<form action="{% url 'report:find' %}" method="post">
-    {% csrf_token %}
-    <div class="input-group flex-nowrap">
-        <label class="input-group-text" id="addon-wrapping" for="find_mobno"></label>
-        <input class="form-control" pattern="[0-9]{10}" oninvalid="this.setCustomValidity('Enter Valid 10 digit Mobile ')" oninput="this.setCustomValidity('')" id="find_mobno" name="find_mobno" aria-describedby="addon-wrapping" placeholder="Enter Exact Mobile Number">
-        <input  disabled id = "find_mobno_sub" class="btn btn-primary btn-sm" type="submit">
-    </div>
-</form>
-<br>
-
-
-<script>
+    {% if message %}<span style="background-color:red">{{ message }}</span>{% endif %}
+    <br>
+    <br>
+    <form action="{% url 'report:find' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group flex-nowrap">
+            <label class="input-group-text" id="addon-wrapping" for="find_name"></label>
+            <input class="form-control"
+                   type="text"
+                   id="find_fname"
+                   name="find_fname"
+                   aria-describedby="addon-wrapping"
+                   placeholder="First Name : Full or part">
+            <label class="input-group-text" id="addon-wrapping" for="find_name"></label>
+            <input class="form-control"
+                   type="text"
+                   id="find_lname"
+                   name="find_lname"
+                   aria-describedby="addon-wrapping"
+                   placeholder="Last Name : Full or part">
+            <input disabled
+                   id="find_name_sub"
+                   class="btn btn-primary btn-sm"
+                   type="submit">
+        </div>
+    </form>
+    <br>
+    <form action="{% url 'report:find' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group flex-nowrap">
+            <label class="input-group-text" id="addon-wrapping" for="find_smpno"></label>
+            <input class="form-control"
+                   type="number"
+                   min="1"
+                   max="9999"
+                   id="find_smpno"
+                   name="find_smpno"
+                   aria-describedby="addon-wrapping"
+                   placeholder="Enter exact Sample Number">
+            <input disabled
+                   id="find_smpno_sub"
+                   class="btn btn-primary btn-sm"
+                   type="submit">
+        </div>
+    </form>
+    <br>
+    <form action="{% url 'report:find' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group flex-nowrap">
+            <label class="input-group-text" id="addon-wrapping" for="find_mobno"></label>
+            <input class="form-control"
+                   pattern="[0-9]{10}"
+                   oninvalid="this.setCustomValidity('Enter Valid 10 digit Mobile ')"
+                   oninput="this.setCustomValidity('')"
+                   id="find_mobno"
+                   name="find_mobno"
+                   aria-describedby="addon-wrapping"
+                   placeholder="Enter Exact Mobile Number">
+            <input disabled
+                   id="find_mobno_sub"
+                   class="btn btn-primary btn-sm"
+                   type="submit">
+        </div>
+    </form>
+    <br>
+    <script>
 document.getElementById('find_fname').addEventListener('change', function () {
     //console.log(document.querySelector('#datesubmit'))
     document.querySelector('#find_name_sub').disabled = false;
@@ -59,10 +88,5 @@ document.getElementById('find_mobno').addEventListener('change', function () {
     //console.log(document.querySelector('#datesubmit'))
     document.querySelector('#find_mobno_sub').disabled = false;
     });
-</script>
-
-
-
-{% endblock %}
-
-
+    </script>
+{% endblock body %}

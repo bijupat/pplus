@@ -61,7 +61,7 @@ def index(request):
     # checking if user key is in request.session dict (check if user loged in)
     if 'user' in request.session:
         USERDB = request.session['dbname']
-        host = request.get_host()
+        # host = request.get_host()
         if request.method == 'GET':
             encounter_today = Tbllab.objects.using(USERDB).filter(dor__date=datetime.today().date())
 

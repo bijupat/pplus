@@ -1,11 +1,10 @@
-
-
 {% extends "report/layout.html" %}
 {% load static %}
-{% block title %}Index{% endblock %}
+{% block title %}
+  Index
+{% endblock title %}
 {% block body %}
-
-<!-- 
+  <!--
 <div class="card text-left">
     <div class="card-header">
         <div class="row row-cols-auto">
@@ -22,47 +21,61 @@
     </div>
 </div>
 -->
-<div class="card text-center">
-
-<div >  
-   {{e.dor|date:"d/m/Y" }}&emsp;&emsp;{{e.fname}} {{e.mname}} {{e.lname}}&emsp;&emsp;{{e.sampno}}
-</div>
-</div>
-
-<div class="card text-left" >
-  {% for t in tests %}
+  <div class="card text-center">
+    <div>{{ e.dor|date:"d/m/Y" }}&emsp;&emsp;{{ e.fname }} {{ e.mname }} {{ e.lname }}&emsp;&emsp;{{ e.sampno }}</div>
+  </div>
+  <div class="card text-left">
+    {% for t in tests %}
       <!-- if test for SMS Is Selected -->
       {% if t.test4sms and t.result %}
-      <li>
-        <!-- {{t.repokey.title}}::-->{{t.test4sms}}: {{t.result}}
-      </li>
+        <li>
+          <!-- {{t.repokey.title}}::-->{{ t.test4sms }}: {{ t.result }}
+        </li>
       {% endif %}
-  {% empty %}
-    <li>No Verified Test !</li>
-  {% endfor %}
-</div>
-<br>
+    {% empty %}
+      <li>No Verified Test !</li>
+    {% endfor %}
+  </div>
   <br>
   <br>
-<br>
   <br>
-<div align="center">
-  <a href="{% url 'report:encounter' e.labkey %}" style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%">Back</a>  
-</div>
-<br>
-
-<div align="center"> 
-  {% if e.mobile4sms %} Patient
-  <a class="navbar-brand" href="https://wa.me/+91{{e.mobile4sms}}/?text=Hi {{e.fname}} {{e.mname}} {{e.lname}}, Your Reports are ready !!%0a{{e.dor|date:'d/m/Y'}}{% for t in tests %} {% if t.test4sms and t.result %}%0a{{t.test4sms}}: {{t.result}}{% endif %} {% empty %} No Verified Test ! {% endfor %}" target="_blank">
-    <img src="{% static 'report\whatsapp.png' %}" alt="" class = "rounded-circle" style="width:60px; height:60px;" class="d-inline-block align-top" alt="">
-  </a>
+  <br>
+  <br>
+  <div align="center">
+    <a href="{% url 'report:encounter' e.labkey %}"
+       style="margin-left:auto;
+              margin-right:auto;
+              margin-top:0%;
+              margin-bottom:0%">Back</a>
+  </div>
+  <br>
+  <div align="center">
+    {% if e.mobile4sms %}
+      Patient
+      <a class="navbar-brand"
+         href="https://wa.me/+91{{ e.mobile4sms }}/?text=Hi {{ e.fname }} {{ e.mname }} {{ e.lname }}, Your Reports are ready !!%0a{{ e.dor|date:'d/m/Y' }}{% for t in tests %} {% if t.test4sms and t.result %}%0a{{ t.test4sms }}: {{ t.result }}{% endif %} {% empty %} No Verified Test ! {% endfor %}"
+         target="_blank">
+        <img src="{% static 'report\whatsapp.png' %}"
+             alt=""
+             class="rounded-circle"
+             style="width:60px;
+                    height:60px"
+             class="d-inline-block align-top"
+             alt="">
+      </a>
+    {% endif %}
+    {% if e.refdr.mobile %}
+      Dr<a class="navbar-brand"
+   href="https://wa.me/+91{{ e.refdr.mobile }}/?text=Hi Dr, {{ e.fname }} {{ e.mname }} {{ e.lname }}'s Reports are ready !!%0a{{ e.dor|date:'d/m/Y' }}{% for t in tests %} {% if t.test4sms and t.result %}%0a{{ t.test4sms }}: {{ t.result }}{% endif %} {% empty %} No Verified Test ! {% endfor %}"
+   target="_blank">
+      <img src="{% static 'report\whatsapp.png' %}"
+           alt=""
+           class="rounded-circle"
+           style="width:60px;
+                  height:60px"
+           class="d-inline-block align-top"
+           alt="">
+    </a>
   {% endif %}
-  {% if  e.refdr.mobile %}
-  Dr<a class="navbar-brand" href="https://wa.me/+91{{e.refdr.mobile}}/?text=Hi Dr, {{e.fname}} {{e.mname}} {{e.lname}}'s Reports are ready !!%0a{{e.dor|date:'d/m/Y'}}{% for t in tests %} {% if t.test4sms and t.result %}%0a{{t.test4sms}}: {{t.result}}{% endif %} {% empty %} No Verified Test ! {% endfor %}" target="_blank">
-    <img src="{% static 'report\whatsapp.png' %}" alt="" class = "rounded-circle" style="width:60px; height:60px;" class="d-inline-block align-top" alt="">
-  </a>
-  {% endif %}
 </div>
-
-
-{% endblock %}
+{% endblock body %}

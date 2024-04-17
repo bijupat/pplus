@@ -1,82 +1,83 @@
 {% extends "report/layout.html" %}
 {% load static %}
-{% block title %}Index{% endblock %}
+{% block title %}
+    Index
+{% endblock title %}
 {% block head %}
-{% endblock %}
+{% endblock head %}
 {% block body %}
-
-<div>
-<!--form section will only be loaded if index is true (if this file rendered from index view) -->
-{% if index %}
-<form action="{% url 'report:index' %}" method="post">
-    {% csrf_token %}
-    <div class="input-group flex-nowrap">
-        <label class="input-group-text" id="addon-wrapping" for="date">Select Date:</label>
-        <input class="form-control" type="date" id="date_select" name="date" aria-describedby="addon-wrapping">
-        <input  disabled id = "datesubmit" class="btn btn-primary btn-sm" type="submit">
-    </div>
-</form>
-<br>
-{% else %}
-<div align ="center">
-    <a href="{% url 'report:find'  %}" style="margin-left:auto;margin-right:auto;margin-top:0%;margin-bottom:0%">Find Other</a>
-</div>
-{% endif %}
-<h5>Patient Listed For  : {{date|default:"Today"}} </h5>
-<br>
-
-{% for e in encounter %}
-    <div class="card" >
-        {% if e.reporeadysmssent %}
-        <div class="card-header" style="background-color:#c9e5c2;" >
-        {% else %}
-        <div class="card-header">
-        {% endif %}
-            <div class="row row-cols-auto" >
-                <div class="col">{% if not index %}{{e.dor|date:"d/m/Y"}} : : {% endif %}{{e.sampno}}</div>
-                <div class="col">{{e.prefix}}-{{e.labno}}</div>
-                <div class="col">Mo:{{e.mobile4sms}}</div>
+    <!--form section will only be loaded if index is true (if this file rendered from index view) -->
+    {% if index %}
+        <form action="{% url 'report:index' %}" method="post">
+            {% csrf_token %}
+            <div class="input-group flex-nowrap">
+                <label class="input-group-text" id="addon-wrapping" for="date">Select Date:</label>
+                <input class="form-control"
+                       type="date"
+                       id="date_select"
+                       name="date"
+                       aria-describedby="addon-wrapping">
+                <input disabled id="datesubmit" class="btn btn-primary btn-sm" type="submit">
+            </div>
+        </form>
+        <br>
+    {% else %}
+        <div align="center">
+            <a href="{% url 'report:find' %}"
+               style="margin-left:auto;
+                      margin-right:auto;
+                      margin-top:0%;
+                      margin-bottom:0%">Find Other</a>
+        </div>
+    {% endif %}
+    <h5>Patient Listed For  : {{ date|default:"Today" }}</h5>
+    <br>
+    {% for e in encounter %}
+        <div class="card">
+            <div class="card-header">
+                <div class="row row-cols-auto">
+                    <div class="col">
+                        {% if not index %}{{ e.dor|date:"d/m/Y" }} : :{% endif %}
+                        {{ e.sampno }}
+                    </div>
+                    <div class="col">{{ e.prefix }}-{{ e.labno }}</div>
+                    <div class="col">Mo:{{ e.mobile4sms }}</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row row-cols-auto">
+                    <div class="col">
+                        <a href="{% url 'report:encounter' e.labkey %}" aria-current="true">
+                            <h5 class="card-title">{{ e.fname }} {{ e.mname }} {{ e.lname }}</h5>
+                        </a>
+                    </div>
+                    <div class="col">{{ e.age|floatformat:"0" }} {{ e.ageunit }}</div>
+                    <div class="col">{{ e.sex }}</div>
+                </div>
+                <div class="row row-cols-auto">
+                    <div class="col">{{ e.refdr.drname }}</div>
+                    <div class="col">{{ e.acckey.accname }}</div>
+                    <div class="col">{{ e.opr.oprid }}</div>
+                </div>
             </div>
         </div>
-        <div class="card-body" >
-            <a href= "{% url 'report:encounter' e.labkey %}" aria-current="true">
-                <h5 class="card-title">{{e.fname}} {{e.mname}} {{e.lname}}</h5>
-            </a>
-            <div class="row row-cols-auto" >
-                <div class="col">{{e.refdr.drname}}</div>
-                <div class="col">{{e.acckey.accname}}</div>
-            </div>
-            <div class="row row-cols-auto">
-                <div class="col">Rep Ready SMS at : {{e.reporeadysmssent}}</div>
-                <div class="col">Result SMS at : {{e.testresultsmssent}}</div>
-            </div>
-        </div>
-    </div>
-{% empty %}
-No Patient Listed!
-{% endfor %}
-
-
-
-<script>
+    {% empty %}
+        No Patient Listed!
+    {% endfor %}
+    <script>
 document.getElementById('date_select').addEventListener('change', function () {
     //console.log(document.querySelector('#datesubmit'))
     document.querySelector('#datesubmit').disabled = false;
     });
-</script>
-
-
-
-{% endblock %}
-
-
-{'labkey': 62217, 'dor': datetime.datetime(2023, 10, 4, 8, 55), 'prefix': 'C', 
+    </script>
+{% endblock body %}
+{'labkey': 62217, 'dor': datetime.datetime(2023, 10, 4, 8, 55), 'prefix': 'C',
 'labno': 42, 'suffix': '22', 'patid': None, 'fname': 'M. S.', 'mname': '', 'lname': 'Patel',
- 'sex': 'M', 'age': Decimal('72.0000'), 'ageunit': 'Years', 'acckey_id': 16, 'plkey': 33, 
- 'sfkey_id': 1, 'addr': '', 'place': '', 'sendby': '', 'urgent': False, 'disc': 0, 
- 'discby': None, 'discnote': '', 'notes': '', 'opr_id': 9, 'refid': '', 'phone': '9726821824', 
- 'refdr_id': 1, 'refdr2': '', 'foc': False, 'periodic': True, 'comm': 0, 'mobile4sms': '9726821824', 
- 'smsresults': False, 'email': '', 'deductamt': 0, 'companion': '', 'rel2pat': '', 'billno': 0, 
- 'billprinted': 0, 'sampno': 5041, 'incent2name': '', 'incent2per': 0, 'key4graph': None, 
- 'pattitle': '', 'extopdno': '', 'extipdno': '', 'extreqno': '', 'extbillno': '', 'extpatcatg': '', 
- 'extsmpcoldt': '', 'extother': '', 'salesrep': '', 'reporeadysmssent': None, 'testresultsmssent': None}
+'sex': 'M', 'age': Decimal('72.0000'), 'ageunit': 'Years', 'acckey_id': 16, 'plkey': 33,
+'sfkey_id': 1, 'addr': '', 'place': '', 'sendby': '', 'urgent': False, 'disc': 0,
+'discby': None, 'discnote': '', 'notes': '', 'opr_id': 9, 'refid': '', 'phone': '9726821824',
+'refdr_id': 1, 'refdr2': '', 'foc': False, 'periodic': True, 'comm': 0, 'mobile4sms': '9726821824',
+'smsresults': False, 'email': '', 'deductamt': 0, 'companion': '', 'rel2pat': '', 'billno': 0,
+'billprinted': 0, 'sampno': 5041, 'incent2name': '', 'incent2per': 0, 'key4graph': None,
+'pattitle': '', 'extopdno': '', 'extipdno': '', 'extreqno': '', 'extbillno': '', 'extpatcatg': '',
+'extsmpcoldt': '', 'extother': '', 'salesrep': '', 'reporeadysmssent': None, 'testresultsmssent': None}
