@@ -7,6 +7,9 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from datetime import timedelta
+import csv, os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #time delta for 5 hours and 30 min  
 #TIME_DELTA530 = timedelta(days= 0, hours = 5, minutes = 30)
@@ -351,3 +354,13 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("report:login"))
 
 
+def get_price(request):
+    if request.method == "POST":
+        pass    
+    context = []
+    with open(os.path.join(BASE_DIR,'pricelist.csv')) as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            context.append(row)
+    print(context)
+    return render(request, 'report/get_price.html', {'context' : context})

@@ -17,5 +17,7 @@ urlpatterns = [
     path('find/', views.find, name='find'),
     path('paymentupdate/<int:oprkey>/', views.paymentupdate, name='paymentupdate'),
     path('dicountlist/', views.discountlist, name='discountlist'),
+    path('getprice/', views.get_price, name = 'getprice'),
+
 ]
 

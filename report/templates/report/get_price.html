@@ -1,0 +1,50 @@
+{% extends "report/layout.html" %}
+{% load static %}
+{% block title %}
+  Get Price
+{% endblock title %}
+{% block head %}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css"
+        rel="stylesheet">
+  <link href="{% static 'report/get_price.css' %}" rel="stylesheet">
+  <script src="{% static 'report/get_price.js' %}" defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
+          defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"
+          defer></script>
+{% endblock head %}
+{% block body %}
+  <div class="tablediv">
+    <div class="testselecgt">
+      <select name="test" id="test_select" autofocus>
+        <option hidden default data-aapm=0 data-price=0>Select test...</option>
+        {% for pli in context %}
+          <option data-price={{ pli.Price }}>{{ pli.Test }}
+          </option>
+        {% endfor %}
+      </select>
+      <small id="emailHelp" class="form-text text-muted">For Additional Discount send Inquiry</small>
+    </div>
+    <button id="addtest" class="btn btn-outline-secondary">Add Test</button>
+    <a href="{% url 'report:getprice' %}" class="btn btn-outline-secondary">Reset</a>
+  </div>
+  <div id="tablediv" class="tablediv">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Test</th>
+          <th scope="col">Price</th>
+        </tr>
+      </thead>
+      <tbody id="pricetablebody">
+      </tbody>
+      <tfoot>
+        <tr id="trtotal">
+          <td>Total</td>
+
+          <td id="totalnet">0</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+{% endblock body %}
