@@ -362,5 +362,5 @@ def get_price(request):
         reader = csv.DictReader(file)
         for row in reader:
             context.append(row)
-    print(context)
+    # print(context)
     return render(request, 'report/get_price.html', {'context' : context})
