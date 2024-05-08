@@ -355,12 +355,17 @@ def logout_view(request):
 
 
 def get_price(request):
-    if request.method == "POST":
-        pass    
-    context = []
-    with open(os.path.join(BASE_DIR,'pricelist.csv')) as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            context.append(row)
-    # print(context)
-    return render(request, 'report/get_price.html', {'context' : context})
+    if 'user' in request.session:
+        if request.method == "POST":
+            pass    
+        context = []
+        with open(os.path.join(BASE_DIR,'pricelist.csv')) as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                context.append(row)
+        # print(context)
+        return render(request, 'report/get_price.html', {'context' : context})
+    else:
+        return render(request, "report/login.html", {
+                "message": "Please Login."
+            })
